@@ -67,7 +67,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/legal/terms"
+                  href="/termeni-si-conditii"
                   className="hover:text-accent-500 transition-colors"
                 >
                   Termeni și Condiții
@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/legal/privacy"
+                  href="/politica-de-confidentialitate"
                   className="hover:text-accent-500 transition-colors"
                 >
                   Politica de Confidențialitate
@@ -83,7 +83,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/legal/delivery"
+                  href="/livrare"
                   className="hover:text-accent-500 transition-colors"
                 >
                   Politică Livrare
@@ -91,7 +91,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/legal/refund"
+                  href="/cancel"
                   className="hover:text-accent-500 transition-colors"
                 >
                   Retur și Anulare
@@ -132,7 +132,16 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} MobizzApp. Toate drepturile
             rezervate.
           </p>
-          <p className="mt-2 md:mt-0">Dezvoltat cu 💚 & 🧡</p>
+          <p className="mt-2 md:mt-0">
+            <a
+              href="https://pixery.ro"
+              target="_blank"
+              className="hover:text-accent-500"
+            >
+              {" "}
+              Dezvoltat cu 💚 & 🧡 de Pixery
+            </a>
+          </p>
         </div>
       </div>
     </footer>
