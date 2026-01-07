@@ -44,7 +44,7 @@ export async function POST(req: Request) {
           role: "user",
           parts: [{ text: `Context Sistem: ${systemInstruction}` }],
         },
-        ...messages.map((m) => ({
+        ...messages.map((m: { role: string; text: string }) => ({
           role: m.role,
           parts: [{ text: m.text }],
         })),

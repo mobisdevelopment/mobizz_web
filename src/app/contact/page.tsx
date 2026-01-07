@@ -71,7 +71,7 @@ export default function Contact() {
             <h2 className="text-2xl font-bold mb-6 text-slate-900">
               Trimite un mesaj
             </h2>
-            <ContactForm email={COMPANY_INFO.email} />
+            <ContactForm />
           </div>
         </div>
       </div>
