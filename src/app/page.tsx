@@ -6,8 +6,6 @@ import {
   Calendar,
   Car,
   CheckCircle2,
-  ChevronDown,
-  ChevronUp,
   Dog,
   Download,
   Dumbbell,

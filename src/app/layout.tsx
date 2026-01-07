@@ -21,7 +21,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased">
+      <body className="bg-dark-100 text-dark-900 antialiased selection:bg-accent-500 selection:text-white">
         <div className="flex flex-col min-h-screen font-sans bg-dark-900 text-dark-100 relative">
           <Navbar />
           <main className="flex-grow">{children}</main>
