@@ -51,7 +51,7 @@ const ChatBot: React.FC = () => {
         ...prev,
         {
           role: "model",
-          text: "Momentan sunt offline. Te rog să ne contactezi pe email la office@mobizz.ro.",
+          text: "Momentan sunt offline. Te rog să ne contactezi pe email la office@mobizzapp.ro.",
         },
       ]);
     } finally {

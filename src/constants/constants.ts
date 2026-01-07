@@ -5,7 +5,7 @@ export const COMPANY_INFO = {
   cui: "44897771",
   regCom: "J04/1581/2021",
   address: "Com. Brusturoasa, sat Brusturoasa, nr.2, jud. Bacău, România",
-  email: "office@mobizz.ro",
+  email: "office@mobizzapp.ro",
 };
 
 export const APP_LINKS = {

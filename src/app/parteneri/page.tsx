@@ -1,5 +1,3 @@
-import Button from "@/components/Button";
-import { APP_LINKS } from "@/constants/constants";
 import {
   BellRing,
   Check,
@@ -11,6 +9,7 @@ import {
   Users,
   Utensils,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function Partners() {
   const benefits = [
@@ -67,13 +66,39 @@ export default function Partners() {
             restaurant, MobizzApp te ajută să gestionezi rezervările și
             comenzile eficient.
           </p>
-          <Button
-            href={APP_LINKS.android}
-            variant="primary"
-            className="px-8 py-4 text-lg"
-          >
+          <h2 className="text-2xl md:text-3xl font-extrabold text-accent-500 mb-8">
             Înregistrează-ți afacerea acum
-          </Button>
+          </h2>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 my-4">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.agrorifserv.homeliv&hl=ro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-105"
+            >
+              <Image
+                src="/images/download-android.png"
+                width={160}
+                height={48}
+                alt="Descarcă aplicația pentru Android"
+                className="h-auto"
+              />
+            </a>
+            <a
+              href="https://apps.apple.com/ro/app/mobizz/id1554145259"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-105"
+            >
+              <Image
+                src="/images/download-ios.png"
+                width={144}
+                height={40}
+                alt="Descarcă aplicația pentru iOS"
+                className="h-auto"
+              />
+            </a>
+          </div>
           <p className="mt-4 text-sm text-dark-500">
             Înregistrarea se face exclusiv din aplicația mobilă.
           </p>
