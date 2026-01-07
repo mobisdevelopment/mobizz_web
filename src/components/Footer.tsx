@@ -52,14 +52,6 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/planuri"
-                  className="hover:text-accent-500 transition-colors"
-                >
-                  Planuri & Prețuri
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/contact"
                   className="hover:text-accent-500 transition-colors"
                 >
