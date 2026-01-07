@@ -37,12 +37,12 @@ export default function Navbar() {
                   {item.label}
                 </Link>
               ))}
-              <a
-                href={APP_LINKS.android}
+              <Link
+                href="/#download"
                 className="bg-accent-500 text-white px-5 py-2.5 rounded-full font-bold shadow-lg shadow-accent-500/20 hover:bg-accent-600 transition-all transform hover:-translate-y-0.5"
               >
                 Descarcă Aplicația
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}

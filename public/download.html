@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Download Our App</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+          const iosLink = "https://apps.apple.com/app/1554145259";
+          const androidLink = "https://play.google.com/store/apps/details?id=com.agrorifserv.homeliv";
+          const fallbackLink = "https://mobizzapp.ro";
+
+          if (/android/i.test(userAgent)) {
+            window.location.href = androidLink;
+          } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            window.location.href = iosLink;
+          } else {
+            window.location.href = fallbackLink;
+          }
+        });
+    </script>
+    <style>
+        body {
+          font-family: system-ui, sans-serif;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          text-align: center;
+          margin: 0;
+        }
+        a {
+          color: #007aff;
+          text-decoration: none;
+          font-weight: 500;
+          margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+<h1>Redirecting to the app store...</h1>
+<p>If you’re not redirected automatically, choose your platform:</p>
+<a href="https://play.google.com/store/apps/details?id=com.agrorifserv.homeliv">Android</a> |
+<a href="https://apps.apple.com/app/1554145259">iOS</a>
+</body>
+</html>

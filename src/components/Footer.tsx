@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Smartphone, Facebook, Instagram, Linkedin } from "lucide-react";
 import { COMPANY_INFO } from "../constants/constants";
+import Image from "next/image";
+import Script from "next/script";
 
 export default function Footer() {
   return (
@@ -17,15 +19,44 @@ export default function Footer() {
               Simplificăm modul în care îți rezervi serviciile preferate. Rapid,
               sigur și mereu la îndemână.
             </p>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4 mb-8">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.agrorifserv.homeliv&hl=ro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-transform hover:scale-105"
+              >
+                <Image
+                  src="/images/download-android.png"
+                  width={160}
+                  height={48}
+                  alt="Descarcă aplicația pentru Android"
+                  className="h-auto"
+                />
+              </a>
+              <a
+                href="https://apps.apple.com/ro/app/mobizz/id1554145259"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-transform hover:scale-105"
+              >
+                <Image
+                  src="/images/download-ios.png"
+                  width={144}
+                  height={40}
+                  alt="Descarcă aplicația pentru iOS"
+                  className="h-auto"
+                />
+              </a>
+            </div>
             <div className="flex gap-4 mt-6">
-              <a href="#" className="hover:text-brand-500 transition-colors">
+              <a
+                href="https://www.facebook.com/MobizzApplication/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-brand-500 transition-colors"
+              >
                 <Facebook size={20} />
-              </a>
-              <a href="#" className="hover:text-accent-500 transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="hover:text-brand-500 transition-colors">
-                <Linkedin size={20} />
               </a>
             </div>
           </div>
@@ -107,6 +138,33 @@ export default function Footer() {
                   ANPC
                 </a>
               </li>
+              {/* ANPC Links */}
+              <div className="mt-4 space-y-3">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://anpc.ro/ce-este-sal/"
+                  className="block w-full pr-4"
+                >
+                  <img
+                    src="/images/anpc1.jpg"
+                    alt="Ce este SAL"
+                    className="w-full h-auto"
+                  />
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://ec.europa.eu/consumers/odr"
+                  className="block w-full pr-4"
+                >
+                  <img
+                    src="/images/anpc2.jpg"
+                    alt="Soluționarea alternativă a litigiilor"
+                    className="w-full h-auto"
+                  />
+                </a>
+              </div>
             </ul>
           </div>
 
@@ -124,6 +182,16 @@ export default function Footer() {
               >
                 {COMPANY_INFO.email}
               </a>
+            </div>
+
+            {/* Netopia */}
+            <div className="mt-6 w-60">
+              <Script
+                src="https://mny.ro/npId.js?p=150564"
+                data-version="orizontal"
+                data-contrast-color="#343a40"
+                strategy="lazyOnload"
+              />
             </div>
           </div>
         </div>

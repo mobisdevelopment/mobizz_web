@@ -88,12 +88,13 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
         {/* Footer Action */}
         <div className="p-6 border-t border-dark-800 bg-black/20 space-y-4">
-          <a
-            href={APP_LINKS.android}
+          <Link
+            href="/#download"
+            onClick={onClose}
             className="flex items-center justify-center w-full py-4 bg-accent-500 hover:bg-accent-600 text-white font-bold rounded-xl shadow-lg shadow-accent-500/20 transition-all active:scale-95"
           >
             Descarcă Aplicația
-          </a>
+          </Link>
           <div className="flex justify-center gap-6 text-dark-500">
             <a href="#" className="hover:text-white transition-colors">
               <Facebook size={20} />

@@ -26,6 +26,7 @@ import {
   UtensilsCrossed,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   const iconMap: any = {
@@ -61,7 +62,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="space-y-0">
+    <div className="space-y-0 scroll-smooth">
       {/* Hero Section - Deep Black Background */}
       <section className="relative pt-12 pb-20 lg:pt-28 lg:pb-32 overflow-hidden bg-black">
         {/* Abstract Background Elements */}
@@ -91,7 +92,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button
-                  href={APP_LINKS.android}
+                  href="#download"
                   icon={<ArrowRight size={20} />}
                   variant="primary"
                 >
@@ -621,7 +622,10 @@ export default function Home() {
       </section>
 
       {/* CTA Bottom - Black for closing impact */}
-      <section className="py-24 bg-black relative overflow-hidden">
+      <section
+        id="download"
+        className="py-24 bg-black relative overflow-hidden"
+      >
         {/* Abstract shapes */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500 rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-600 rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
@@ -634,14 +638,37 @@ export default function Home() {
             Alătură-te miilor de utilizatori care își simplifică viața cu
             MobizzApp.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Button
-              href={APP_LINKS.android}
-              variant="primary"
-              className="shadow-white/5"
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.agrorifserv.homeliv&hl=ro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-105"
             >
-              Descarcă pentru Client
-            </Button>
+              <Image
+                src="/images/download-android.png"
+                width={160}
+                height={48}
+                alt="Descarcă aplicația pentru Android"
+                className="h-auto"
+              />
+            </a>
+            <a
+              href="https://apps.apple.com/ro/app/mobizz/id1554145259"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-transform hover:scale-105"
+            >
+              <Image
+                src="/images/download-ios.png"
+                width={144}
+                height={40}
+                alt="Descarcă aplicația pentru iOS"
+                className="h-auto"
+              />
+            </a>
+          </div>
+          <div className="flex justify-center">
             <Button
               href="/parteneri"
               className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
