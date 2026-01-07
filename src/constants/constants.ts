@@ -1,4 +1,4 @@
-import { NavItem, Plan } from "../app/types/types";
+import { NavItem, Plan } from "../types/types";
 
 export const COMPANY_INFO = {
   name: "MOBIS DEVELOPMENT SRL",
