@@ -137,7 +137,6 @@ export default function Partners() {
                     "Management Echipă: Setează orarul individual, permisiunile și serviciile specifice fiecărui angajat.",
                     "Bază de Date Clienți (CRM): Istoric complet, notițe despre preferințe și posibilitate de blocare clienți neserioși.",
                     "Rapoarte Financiare: Vezi încasările zilnice/lunare, top servicii vândute și performanța echipei.",
-                    "Link Social Media: Include link-ul direct de rezervare pe Instagram/Facebook/TikTok ('Book Now').",
                   ].map((item, i) => {
                     const [boldText, normalText] = item.split(": ");
                     return (
@@ -178,8 +177,7 @@ export default function Partners() {
               <div className="p-8">
                 <ul className="space-y-4">
                   {[
-                    "Meniu Digital Complet: Adaugă poze, descrieri, alergeni, gramaje și opțiuni extra (topping-uri, sosuri).",
-                    "Comisioane Zero*: Preiei comenzi direct de la clienți fără a plăti procentele uriașe ale platformelor clasice de delivery (*la planul Gratuit).",
+                    "Comisioane Zero: Preiei comenzi direct de la clienți fără a plăti procentele uriașe ale platformelor clasice de delivery.",
                     "Flux Comenzi Live: Tabletă/Telefon dedicat în bucătărie cu alerte sonore. Gestionează statusul: Nouă -> În Preparare -> Livrată.",
                     "Livrare Proprie & Zone: Definește zonele unde livrezi pe hartă, costul transportului și comanda minimă pentru fiecare zonă.",
                     "Gestionare Livratori: Aplicație dedicată pentru șoferii tăi sau opțiune simplă de 'Ridicare Personală' pentru clienți.",
@@ -262,7 +260,7 @@ export default function Partners() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-dark-50 p-8 rounded-3xl shadow-sm border-l-4 border-brand-500 relative overflow-hidden">
-              <span className="text-8xl font-black text-dark-200 absolute -top-6 -right-6 z-0">
+              <span className="text-8xl font-black text-dark-200 absolute -top-4 -right-3 z-0">
                 1
               </span>
               <div className="relative z-10">
@@ -277,7 +275,7 @@ export default function Partners() {
             </div>
 
             <div className="bg-dark-50 p-8 rounded-3xl shadow-sm border-l-4 border-brand-500 relative overflow-hidden">
-              <span className="text-8xl font-black text-dark-200 absolute -top-6 -right-6 z-0">
+              <span className="text-8xl font-black text-dark-200 absolute -top-4 -right-6 z-0">
                 2
               </span>
               <div className="relative z-10">
@@ -292,7 +290,7 @@ export default function Partners() {
             </div>
 
             <div className="bg-dark-50 p-8 rounded-3xl shadow-sm border-l-4 border-brand-500 relative overflow-hidden">
-              <span className="text-8xl font-black text-dark-200 absolute -top-6 -right-6 z-0">
+              <span className="text-8xl font-black text-dark-200 absolute -top-4 -right-6 z-0">
                 3
               </span>
               <div className="relative z-10">
@@ -300,7 +298,7 @@ export default function Partners() {
                   Start Business
                 </h3>
                 <p className="text-dark-600">
-                  Activează profilul. Clienții te pot programa sau pot comanda
+                  Activează profilul. Clienții se pot programa sau pot comanda
                   mâncare imediat.
                 </p>
               </div>
