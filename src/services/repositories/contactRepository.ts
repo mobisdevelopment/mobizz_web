@@ -1,5 +1,5 @@
 import { API_CONFIG } from "@/constants/config";
-import { makeApiRequest } from "../api-request";
+import { makeApiRequest } from "../apiRequest";
 
 class ContactRepository {
   private readonly baseUrl = API_CONFIG.BASE_URL;
