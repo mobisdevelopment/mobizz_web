@@ -1,6 +1,6 @@
 "use client";
 
-import { submitContactForm } from "@/app/contact/actions";
+import { submitContactForm } from "@/app/(public)/contact/actions";
 import Button from "@/components/Button";
 import React from "react";
 

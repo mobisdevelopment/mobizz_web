@@ -1,5 +1,7 @@
 import { UserService } from "@/services/userService";
 import { redirect } from "next/navigation";
+import "./admin.css";
+import AdminSidebar from "@/components/admin/AdminSidebar";
 
 export default async function AdminLayout({
   children,
@@ -12,5 +14,10 @@ export default async function AdminLayout({
     redirect("/");
   }
 
-  return <>{children}</>;
+  return (
+    <div className="admin-layout">
+      <AdminSidebar currentUser={currentUser} />
+      <div>{children}</div>
+    </div>
+  );
 }

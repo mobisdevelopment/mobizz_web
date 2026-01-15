@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+.admin-layout {
+  @apply flex w-full h-full bg-gray-50;
+}
+
+.sidemenu {
+  @apply p-2 w-64 bg-white border-r border-gray-200;
+
+  li {
+    a {
+      @apply flex items-center px-4 py-3 gap-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer;
+
+      &.active {
+        @apply bg-gray-200 text-gray-900 font-semibold;
+      }
+    }
+  }
+
+  hr {
+    @apply my-2 border-gray-200;
+  }
+
+  button {
+    @apply flex gap-2 w-full text-left px-4 py-3 mt-auto text-red-600 hover:bg-red-100 hover:text-red-800;
+  }
+}

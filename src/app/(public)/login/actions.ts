@@ -44,5 +44,5 @@ export async function loginWithEmailAndPassword(
 export async function logout(): Promise<void> {
   await TokenService.clear();
 
-  redirect("/login");
+  redirect("/");
 }

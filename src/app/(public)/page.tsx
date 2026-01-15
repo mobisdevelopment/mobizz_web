@@ -1,6 +1,4 @@
 import Button from "@/components/Button";
-import Statistics from "@/components/Statistics";
-import Testimonials from "@/components/Testimonials";
 import { APP_LINKS, CATEGORIES } from "@/constants/constants";
 import {
   ArrowRight,
@@ -16,7 +14,6 @@ import {
   MoreHorizontal,
   MousePointerClick,
   PartyPopper,
-  Quote,
   Scissors,
   Search,
   Settings,

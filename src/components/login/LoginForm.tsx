@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginWithEmailAndPassword } from "@/app/login/actions";
+import { loginWithEmailAndPassword } from "@/app/(public)/login/actions";
 import FormErrors from "../common/FormErrors";
 
 export default function LoginForm() {

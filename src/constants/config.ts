@@ -7,5 +7,9 @@ export const API_CONFIG = {
     CONTACT: {
       SAVE: "api/contact_messages",
     },
+    ESTABLISHMENTS: {
+      LIST: "api/establishments",
+      DETAILS: (id: string) => `api/establishments/${id}`,
+    },
   },
 } as const;
