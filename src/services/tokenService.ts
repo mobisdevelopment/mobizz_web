@@ -33,6 +33,21 @@ export class TokenService {
     });
   }
 
+  static async isAuthenticated(): Promise<boolean> {
+    const token = await this.getBearerToken();
+    return !!token;
+  }
+
+  static async getBearerToken(): Promise<string | undefined> {
+    const cookieStore = await cookies();
+    return cookieStore.get("authToken")?.value;
+  }
+
+  static async getUserId(): Promise<string | undefined> {
+    const cookieStore = await cookies();
+    return cookieStore.get("userIdentifier")?.value;
+  }
+
   static async clear(): Promise<void> {
     const cookieStore = await cookies();
 
