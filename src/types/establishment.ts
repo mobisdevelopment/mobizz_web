@@ -6,4 +6,5 @@ export interface Establishment {
   email: string;
   website?: string;
   description?: string;
+  status: number;
 }
