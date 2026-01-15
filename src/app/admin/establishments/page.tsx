@@ -1,3 +1,66 @@
-export default function EstablishmentsPage() {
-  return <h1>Establishments Page</h1>;
+import Link from "next/link";
+import { getEstablishments } from "./actions";
+
+export default async function EstablishmentsPage() {
+  const establishments = await getEstablishments();
+
+  return (
+    <div className="w-full p-8">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-gray-900">Establishments</h1>
+        <p className="text-gray-600 mt-2">
+          Manage your business establishments
+        </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-gray-100 border-b border-gray-200">
+              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                ID
+              </th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                Name
+              </th>
+              <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">
+                Address
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {establishments.length > 0 ? (
+              establishments.map((establishment) => (
+                <tr
+                  key={establishment.id}
+                  className="border-b border-gray-200 hover:bg-gray-50 transition"
+                >
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {establishment.id}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900 font-medium">
+                    <Link
+                      href={`/admin/establishments/${establishment.id}`}
+                      className="text-blue-600 hover:text-blue-800 hover:underline"
+                    >
+                      {establishment.name}
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {establishment.address}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3} className="px-6 py-8 text-center text-gray-500">
+                  No establishments found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }

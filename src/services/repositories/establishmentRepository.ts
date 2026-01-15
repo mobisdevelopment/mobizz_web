@@ -24,8 +24,7 @@ class EstablishmentRepository {
       throw new Error("Failed to load establishments");
     }
 
-    const establishments: Establishment[] = (await response.json()).data
-      .establishments;
+    const establishments: Establishment[] = await response.json();
 
     return establishments;
   }
@@ -46,8 +45,7 @@ class EstablishmentRepository {
       throw new Error("Failed to load establishment details");
     }
 
-    const establishment: Establishment = (await response.json()).data
-      .establishment;
+    const establishment: Establishment = await response.json();
 
     return establishment;
   }
