@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { getEstablishments } from "./actions";
 
-export default async function EstablishmentsPage() {
-  const establishments = await getEstablishments();
+export default async function EstablishmentsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const params = await searchParams;
+  const page = Math.max(1, parseInt(params.page || "1", 10));
+  const establishments = await getEstablishments(page);
 
   return (
     <div className="w-full p-8">
@@ -60,6 +66,28 @@ export default async function EstablishmentsPage() {
             )}
           </tbody>
         </table>
+      </div>
+
+      <div className="mt-8 flex items-center justify-center gap-4">
+        <Link
+          href={`?page=${page - 1}`}
+          className={`px-4 py-2 rounded ${
+            page <= 1
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none"
+              : "bg-blue-600 text-white hover:bg-blue-700"
+          }`}
+        >
+          Previous
+        </Link>
+
+        <span className="text-sm text-gray-600">Page {page}</span>
+
+        <Link
+          href={`?page=${page + 1}`}
+          className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+        >
+          Next
+        </Link>
       </div>
     </div>
   );

@@ -6,8 +6,9 @@ class EstablishmentRepository {
   private readonly baseUrl = API_CONFIG.BASE_URL;
   private readonly endpoints = API_CONFIG.ENDPOINTS.ESTABLISHMENTS;
 
-  async listEstablishments(): Promise<Establishment[]> {
-    const response = await makeApiRequest(this.baseUrl, this.endpoints.LIST, {
+  async listEstablishments(page?: number): Promise<Establishment[]> {
+    const url = this.endpoints.LIST + (page ? `?page=${page}` : "");
+    const response = await makeApiRequest(this.baseUrl, url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

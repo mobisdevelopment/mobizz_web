@@ -22,6 +22,7 @@ export async function loginWithEmailAndPassword(
   }
 
   try {
+    TokenService.clear();
     const [token, userIdentifier, roles] = await authRepository.authenticate(
       email,
       password
