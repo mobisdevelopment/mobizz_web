@@ -54,6 +54,65 @@ class ProductRepository {
 
     return product;
   }
+
+  async updateProduct(id: string, data: Partial<Product>): Promise<Product> {
+    const response = await makeApiRequest(
+      this.baseUrl,
+      this.endpoints.DETAILS(id),
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          data,
+          establishment: data.establishmentId
+            ? `api/establishments/${data.establishmentId}`
+            : null,
+          establishmentProductCategory: data.establishmentProductCategoryId
+            ? `api/establishment_product_categories/${data.establishmentProductCategoryId}`
+            : null,
+          uploadedImages: data.uploadedImagesIds
+            ? data.uploadedImagesIds.map((id) => `api/uploaded_images/${id}`)
+            : [],
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData?.error?.message ||
+          errorData?.message ||
+          "Failed to update product"
+      );
+    }
+
+    const updatedProduct: Product = await response.json();
+    return updatedProduct;
+  }
+
+  async createProduct(data: Partial<Product>): Promise<Product> {
+    const response = await makeApiRequest(this.baseUrl, this.endpoints.CREATE, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData?.error?.message ||
+          errorData?.message ||
+          "Failed to create product"
+      );
+    }
+
+    const newProduct: Product = await response.json();
+    return newProduct;
+  }
 }
 
 export const productRepository = new ProductRepository();

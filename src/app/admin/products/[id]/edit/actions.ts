@@ -63,41 +63,21 @@ export async function updateProduct(
       }
     }
 
-    // Combine existing and new image IRIs
-    const allImageIris = [
-      ...existingImageIds.map((id) => `api/uploaded_images/${id}`),
-      ...uploadedImages.map((img) => `api/uploaded_images/${img.id}`),
-    ];
-
     // Update product
-    const response = await makeApiRequest(
-      API_CONFIG.BASE_URL,
-      `api/products/${productId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({
-          name,
-          description,
-          priceMinor,
-          establishment: `api/establishments/${establishmentId}`,
-          establishmentProductCategory: establishmentProductCategoryId
-            ? `api/establishment_product_categories/${establishmentProductCategoryId}`
-            : null,
-          status,
-          uploadedImages: allImageIris,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      return {
-        error:
-          errorData?.error?.message ||
-          errorData?.message ||
-          "Failed to update product",
-      };
-    }
+    await productRepository.updateProduct(productId, {
+      name,
+      description,
+      priceMinor,
+      establishmentId: establishmentId ? parseInt(establishmentId) : undefined,
+      establishmentProductCategoryId: establishmentProductCategoryId
+        ? parseInt(establishmentProductCategoryId)
+        : undefined,
+      status,
+      uploadedImagesIds: [
+        ...existingImageIds,
+        ...uploadedImages.map((img) => img.id),
+      ],
+    });
 
     revalidatePath("/admin/products");
     revalidatePath(`/admin/products/${productId}`);

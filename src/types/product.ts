@@ -8,7 +8,10 @@ export interface Product {
   description: string;
   priceMinor: number;
   status: number;
+  establishmentId?: number | null;
   establishment: Establishment;
+  establishmentProductCategoryId?: number | null;
   establishmentProductCategory?: EstablishmentProductCategory | null;
   uploadedImages: UploadedImage[];
+  uploadedImagesIds?: string[];
 }

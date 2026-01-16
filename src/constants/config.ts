@@ -18,6 +18,7 @@ export const API_CONFIG = {
       LIST: "api/products",
       DETAILS: (id: string) => `api/products/${id}`,
       CREATE: "api/products",
+      UPDATE: (id: string) => `api/products/${id}`,
     },
     UPLOADED_IMAGES: {
       UPLOAD: "api/uploaded_images",
