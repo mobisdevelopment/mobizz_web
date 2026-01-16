@@ -42,16 +42,19 @@ export default function NewProductForm({
   };
 
   const handleFormAction = async (formData: FormData) => {
-    // Add all accumulated images to the form data
     images.forEach((image) => {
       formData.append("images", image);
     });
-    // Call the original form action
+
     await formAction(formData);
   };
 
   return (
-    <form action={handleFormAction} className="space-y-6">
+    <form
+      key={JSON.stringify(state?.values ?? {})}
+      action={handleFormAction}
+      className="space-y-6"
+    >
       <input type="hidden" name="establishmentId" value={establishment.id} />
 
       {state?.error && (
@@ -81,6 +84,7 @@ export default function NewProductForm({
           id="name"
           name="name"
           required
+          defaultValue={state?.values?.name ?? ""}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter product name"
         />
@@ -97,6 +101,7 @@ export default function NewProductForm({
           id="description"
           name="description"
           rows={4}
+          defaultValue={state?.values?.description ?? ""}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter product description (optional)"
         ></textarea>
@@ -112,6 +117,7 @@ export default function NewProductForm({
         <select
           id="categoryId"
           name="categoryId"
+          defaultValue={state?.values?.categoryId ?? ""}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">Select a category (optional)</option>
@@ -138,6 +144,7 @@ export default function NewProductForm({
           required
           min="0"
           step="1"
+          defaultValue={state?.values?.priceMinor ?? ""}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter price in bani (e.g., 2500 for 25.00 RON)"
         />
@@ -158,7 +165,7 @@ export default function NewProductForm({
           id="status"
           name="status"
           required
-          defaultValue="1"
+          defaultValue={state?.values?.status ?? "1"}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="1">Active</option>

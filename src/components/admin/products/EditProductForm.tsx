@@ -62,7 +62,11 @@ export default function EditProductForm({
   };
 
   return (
-    <form action={handleFormAction} className="space-y-6">
+    <form
+      key={JSON.stringify(state?.values ?? {})}
+      action={handleFormAction}
+      className="space-y-6"
+    >
       <input type="hidden" name="productId" value={product.id} />
       <input
         type="hidden"
@@ -97,7 +101,7 @@ export default function EditProductForm({
           id="name"
           name="name"
           required
-          defaultValue={product.name}
+          defaultValue={state?.values?.name ?? product.name}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter product name"
         />
@@ -114,7 +118,7 @@ export default function EditProductForm({
           id="description"
           name="description"
           rows={4}
-          defaultValue={product.description || ""}
+          defaultValue={state?.values?.description ?? product.description}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter product description (optional)"
         ></textarea>
@@ -130,7 +134,10 @@ export default function EditProductForm({
         <select
           id="categoryId"
           name="categoryId"
-          defaultValue={product.establishmentProductCategory?.id || ""}
+          defaultValue={
+            state?.values?.categoryId ??
+            (product.establishmentProductCategory?.id.toString() || "")
+          }
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">Select a category (optional)</option>
@@ -157,7 +164,9 @@ export default function EditProductForm({
           required
           min="0"
           step="1"
-          defaultValue={product.priceMinor}
+          defaultValue={
+            state?.values?.priceMinor ?? product.priceMinor.toString()
+          }
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter price in bani (e.g., 2500 for 25.00 RON)"
         />
@@ -178,7 +187,7 @@ export default function EditProductForm({
           id="status"
           name="status"
           required
-          defaultValue={product.status.toString()}
+          defaultValue={state?.values?.status ?? product.status.toString()}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="1">Active</option>

@@ -33,20 +33,104 @@ export async function getEstablishmentProductCategories(
   }
 }
 
+interface UpdateProductState {
+  error?: string;
+  values?: {
+    name?: string;
+    description?: string;
+    priceMinor?: string;
+    categoryId?: string;
+    status?: string;
+  };
+}
+
 export async function updateProduct(
-  prevState: { error?: string } | null,
+  prevState: UpdateProductState | null,
   formData: FormData
-) {
+): Promise<UpdateProductState> {
+  const productId = formData.get("productId") as string;
+  const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
+  const priceMinorStr = formData.get("priceMinor") as string;
+  const establishmentId = formData.get("establishmentId") as string;
+  const establishmentProductCategoryId = formData.get("categoryId") as string;
+  const statusStr = formData.get("status") as string;
+  const images = formData.getAll("images") as File[];
+  const existingImageIds = formData.getAll("existingImageIds") as string[];
+
+  const savedValues = {
+    name,
+    description,
+    priceMinor: priceMinorStr,
+    categoryId: establishmentProductCategoryId,
+    status: statusStr,
+  };
+
   try {
-    const productId = formData.get("productId") as string;
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
-    const priceMinor = parseInt(formData.get("priceMinor") as string);
-    const establishmentId = formData.get("establishmentId") as string;
-    const establishmentProductCategoryId = formData.get("categoryId") as string;
-    const status = parseInt(formData.get("status") as string);
-    const images = formData.getAll("images") as File[];
-    const existingImageIds = formData.getAll("existingImageIds") as string[];
+    // Validation
+    if (!productId || productId.trim().length === 0) {
+      return { error: "Product ID is required", values: savedValues };
+    }
+
+    if (!name || name.trim().length === 0) {
+      return { error: "Product name is required", values: savedValues };
+    }
+
+    if (name.trim().length < 3) {
+      return {
+        error: "Product name must be at least 3 characters",
+        values: savedValues,
+      };
+    }
+
+    if (name.trim().length > 255) {
+      return {
+        error: "Product name must not exceed 255 characters",
+        values: savedValues,
+      };
+    }
+
+    if (description && description.trim().length > 5000) {
+      return {
+        error: "Description must not exceed 5000 characters",
+        values: savedValues,
+      };
+    }
+
+    if (!priceMinorStr || isNaN(parseInt(priceMinorStr))) {
+      return { error: "Valid price is required", values: savedValues };
+    }
+
+    const priceMinor = parseInt(priceMinorStr);
+    if (priceMinor < 0) {
+      return { error: "Price cannot be negative", values: savedValues };
+    }
+
+    if (priceMinor > 999999999) {
+      return { error: "Price is too high", values: savedValues };
+    }
+
+    if (!statusStr || isNaN(parseInt(statusStr))) {
+      return { error: "Valid status is required", values: savedValues };
+    }
+
+    // Validate images
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    for (const image of images) {
+      if (image.size > MAX_FILE_SIZE) {
+        return {
+          error: `Image "${image.name}" is larger than 5MB`,
+          values: savedValues,
+        };
+      }
+
+      if (!image.type.startsWith("image/")) {
+        return {
+          error: `"${image.name}" is not a valid image file`,
+          values: savedValues,
+        };
+      }
+    }
 
     // Upload new images if provided
     const uploadedImages = [];
@@ -65,14 +149,14 @@ export async function updateProduct(
 
     // Update product
     await productRepository.updateProduct(productId, {
-      name,
-      description,
+      name: name.trim(),
+      description: description?.trim() || "",
       priceMinor,
       establishmentId: establishmentId ? parseInt(establishmentId) : undefined,
       establishmentProductCategoryId: establishmentProductCategoryId
         ? parseInt(establishmentProductCategoryId)
         : undefined,
-      status,
+      status: parseInt(statusStr),
       uploadedImagesIds: [
         ...existingImageIds,
         ...uploadedImages.map((img) => img.id),
@@ -86,6 +170,7 @@ export async function updateProduct(
     return {
       error:
         error instanceof Error ? error.message : "Failed to update product",
+      values: savedValues,
     };
   }
 
