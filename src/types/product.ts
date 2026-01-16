@@ -5,6 +5,7 @@ import { UploadedImage } from "./uploadedImage";
 export interface Product {
   id: string;
   name: string;
+  description: string;
   priceMinor: number;
   status: number;
   establishment: Establishment;

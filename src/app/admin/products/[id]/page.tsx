@@ -63,6 +63,14 @@ export default async function ProductPage({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">
+                Description
+              </label>
+              <p className="text-lg text-gray-900 whitespace-pre-wrap">
+                {product.description || "No description provided."}
+              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600">
                 Price
               </label>
               <p className="text-lg text-gray-900">

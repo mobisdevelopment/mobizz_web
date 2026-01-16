@@ -27,6 +27,7 @@ export async function createProduct(
 ) {
   try {
     const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
     const priceMinor = parseInt(formData.get("priceMinor") as string);
     const establishmentId = formData.get("establishmentId") as string;
     const status = parseInt(formData.get("status") as string);
@@ -38,6 +39,7 @@ export async function createProduct(
         method: "POST",
         body: JSON.stringify({
           name,
+          description,
           priceMinor,
           establishment: `api/establishments/${establishmentId}`,
           status,
