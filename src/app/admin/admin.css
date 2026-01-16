@@ -9,7 +9,7 @@
 
   li {
     a {
-      @apply flex items-center px-4 py-3 gap-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer;
+      @apply flex items-center px-3 py-3 gap-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer;
 
       &.active {
         @apply bg-gray-200 text-gray-900 font-semibold;
@@ -23,5 +23,101 @@
 
   button {
     @apply flex gap-2 w-full text-left px-4 py-3 mt-auto text-red-600 hover:bg-red-100 hover:text-red-800;
+  }
+}
+
+.admin-page {
+  @apply w-full p-8;
+}
+
+.admin-page-header {
+  @apply mb-8;
+
+  h1 {
+    @apply text-4xl font-bold text-gray-900;
+  }
+
+  p {
+    @apply text-gray-600 mt-2;
+  }
+}
+
+.admin-table-container {
+  @apply bg-white rounded-lg shadow overflow-hidden;
+}
+
+.admin-table {
+  @apply w-full;
+
+  thead {
+    tr {
+      @apply bg-gray-100 border-b border-gray-200;
+    }
+
+    th {
+      @apply px-6 py-4 text-left text-sm font-semibold text-gray-900;
+    }
+  }
+
+  tbody {
+    tr {
+      @apply border-b border-gray-200 hover:bg-gray-50 transition;
+
+      &.empty {
+        @apply hover:bg-white;
+      }
+    }
+
+    td {
+      @apply px-6 py-4 text-sm text-gray-600;
+
+      &.id {
+        @apply text-gray-500;
+      }
+
+      &.primary {
+        @apply text-gray-900 font-medium;
+      }
+
+      &.empty {
+        @apply py-8 text-center text-gray-500;
+      }
+
+      a {
+        @apply text-blue-600 hover:text-blue-800 hover:underline;
+      }
+    }
+  }
+}
+
+.status-badge {
+  @apply px-3 py-1 rounded-full text-xs font-semibold;
+
+  &.active {
+    @apply bg-green-100 text-green-800;
+  }
+
+  &.inactive {
+    @apply bg-red-100 text-red-800;
+  }
+}
+
+.admin-pagination {
+  @apply mt-8 flex items-center justify-center gap-4;
+
+  a {
+    @apply px-4 py-2 rounded;
+
+    &.disabled {
+      @apply bg-gray-100 text-gray-400 cursor-not-allowed pointer-events-none;
+    }
+
+    &.enabled {
+      @apply bg-blue-600 text-white hover:bg-blue-700;
+    }
+  }
+
+  span {
+    @apply text-sm text-gray-600;
   }
 }

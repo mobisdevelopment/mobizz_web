@@ -35,24 +35,19 @@ export async function makeApiRequest(
   if (DEBUG) {
     const clonedResponse = response.clone();
     const plainText = await clonedResponse.text();
-    let responseData;
-    try {
-      responseData = JSON.parse(plainText);
-    } catch {
-      responseData = plainText;
-    }
+
     if (response.ok) {
       console.log("🟢 API Response Success:", {
         url,
         status: response.status,
-        data: responseData,
+        data: plainText,
       });
     } else {
       console.log("🔴 API Response Error:", {
         status: response.status,
         statusText: response.statusText,
         url,
-        body: responseData,
+        body: plainText,
       });
     }
   }

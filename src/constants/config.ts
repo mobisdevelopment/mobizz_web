@@ -11,5 +11,9 @@ export const API_CONFIG = {
       LIST: "api/establishments-admin",
       DETAILS: (id: string) => `api/establishments/${id}`,
     },
+    PRODUCTS: {
+      LIST: "api/products",
+      DETAILS: (id: string) => `api/products/${id}`,
+    },
   },
 } as const;
