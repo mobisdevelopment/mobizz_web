@@ -1,5 +1,6 @@
 import { Establishment } from "./establishment";
 import { EstablishmentProductCategory } from "./establishmentProductCategory";
+import { UploadedImage } from "./uploadedImage";
 
 export interface Product {
   id: string;
@@ -8,4 +9,5 @@ export interface Product {
   status: number;
   establishment: Establishment;
   establishmentProductCategory?: EstablishmentProductCategory | null;
+  uploadedImages: UploadedImage[];
 }

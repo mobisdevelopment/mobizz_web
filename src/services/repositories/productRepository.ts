@@ -47,6 +47,10 @@ class ProductRepository {
     }
 
     const product: Product = await response.json();
+    product.uploadedImages = product.uploadedImages.map((image) => ({
+      ...image,
+      url: API_CONFIG.BASE_URL + "uploads/images/" + image.image,
+    }));
 
     return product;
   }
