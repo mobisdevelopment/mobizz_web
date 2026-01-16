@@ -1,5 +1,8 @@
 import NewProductForm from "@/components/admin/products/NewProductForm";
-import { getEstablishmentById } from "./actions";
+import {
+  getEstablishmentById,
+  getEstablishmentProductCategories,
+} from "./actions";
 
 export default async function NewProductPage({
   searchParams,
@@ -17,6 +20,8 @@ export default async function NewProductPage({
     throw new Error("Establishment not found.");
   }
 
+  const categories = await getEstablishmentProductCategories(establishment.id);
+
   return (
     <div className="admin-page">
       <div className="admin-page-header">
@@ -27,7 +32,7 @@ export default async function NewProductPage({
       </div>
 
       <div className="bg-white rounded-lg shadow p-8 max-w-2xl">
-        <NewProductForm establishment={establishment} />
+        <NewProductForm establishment={establishment} categories={categories} />
       </div>
     </div>
   );

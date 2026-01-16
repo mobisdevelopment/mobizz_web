@@ -6,6 +6,7 @@ import { makeApiRequest } from "@/services/apiRequest";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Establishment } from "@/types/establishment";
+import { establishmentProductCategoryRepository } from "@/services/repositories/establishmentProductCategoryRepository";
 
 export async function getEstablishmentById(
   id: string
@@ -21,6 +22,21 @@ export async function getEstablishmentById(
   }
 }
 
+export async function getEstablishmentProductCategories(
+  establishmentId: number
+) {
+  try {
+    const categories = await establishmentProductCategoryRepository.list(
+      establishmentId
+    );
+
+    return categories;
+  } catch (error) {
+    console.error("Error fetching establishment product categories:", error);
+    return [];
+  }
+}
+
 export async function createProduct(
   prevState: { error?: string } | null,
   formData: FormData
@@ -30,6 +46,7 @@ export async function createProduct(
     const description = formData.get("description") as string;
     const priceMinor = parseInt(formData.get("priceMinor") as string);
     const establishmentId = formData.get("establishmentId") as string;
+    const establishmentProductCategoryId = formData.get("categoryId") as string;
     const status = parseInt(formData.get("status") as string);
 
     const response = await makeApiRequest(
@@ -42,6 +59,9 @@ export async function createProduct(
           description,
           priceMinor,
           establishment: `api/establishments/${establishmentId}`,
+          establishmentProductCategory: establishmentProductCategoryId
+            ? `api/establishment_product_categories/${establishmentProductCategoryId}`
+            : null,
           status,
         }),
       }
