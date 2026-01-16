@@ -13,8 +13,10 @@ export default async function EstablishmentsPage({
   return (
     <div className="admin-page">
       <div className="admin-page-header">
-        <h1>Establishments</h1>
-        <p>Manage your business establishments</p>
+        <div>
+          <h1>Establishments</h1>
+          <p>Manage your business establishments</p>
+        </div>
       </div>
 
       <div className="admin-table-container">
@@ -25,6 +27,7 @@ export default async function EstablishmentsPage({
               <th>Name</th>
               <th>Address</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -47,11 +50,19 @@ export default async function EstablishmentsPage({
                       {establishment.status === 1 ? "Active" : "Inactive"}
                     </span>
                   </td>
+                  <td>
+                    <a
+                      href={`/admin/products/new?establishmentId=${establishment.id}`}
+                      className="btn btn-primary"
+                    >
+                      + Product
+                    </a>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr className="empty">
-                <td colSpan={4} className="empty">
+                <td colSpan={5} className="empty">
                   No establishments found
                 </td>
               </tr>

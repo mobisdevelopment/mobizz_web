@@ -14,6 +14,7 @@ export const API_CONFIG = {
     PRODUCTS: {
       LIST: "api/products",
       DETAILS: (id: string) => `api/products/${id}`,
+      CREATE: "api/products",
     },
   },
 } as const;

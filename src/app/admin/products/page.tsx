@@ -13,8 +13,10 @@ export default async function ProductsPage({
   return (
     <div className="admin-page">
       <div className="admin-page-header">
-        <h1>Products</h1>
-        <p>Manage your business products</p>
+        <div>
+          <h1>Products</h1>
+          <p>Manage your business products</p>
+        </div>
       </div>
 
       <div className="admin-table-container">
