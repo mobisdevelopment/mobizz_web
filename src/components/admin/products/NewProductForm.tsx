@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
+import { useState } from "react";
 import { Establishment } from "@/types/establishment";
 import { createProduct } from "@/app/admin/products/new/actions";
 import { EstablishmentProductCategory } from "@/types/establishmentProductCategory";
@@ -15,6 +16,21 @@ export default function NewProductForm({
   categories,
 }: NewProductFormProps) {
   const [state, formAction] = useFormState(createProduct, null);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setImagePreviews([]); // Reset previews
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        setImagePreviews((prev) => [...prev, result]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <form action={formAction} className="space-y-6">
@@ -131,6 +147,46 @@ export default function NewProductForm({
           <option value="0">Inactive</option>
         </select>
       </div>
+
+      <div>
+        <label
+          htmlFor="images"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
+          Product Images
+        </label>
+        <input
+          type="file"
+          id="images"
+          name="images"
+          multiple
+          accept="image/*"
+          onChange={handleImageChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <p className="text-sm text-gray-500 mt-1">
+          Upload one or more product images (optional)
+        </p>
+      </div>
+
+      {imagePreviews.length > 0 && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Image Previews
+          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {imagePreviews.map((preview, index) => (
+              <div key={index} className="border rounded-lg overflow-hidden">
+                <img
+                  src={preview}
+                  alt={`Preview ${index + 1}`}
+                  className="w-full h-24 object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="flex gap-4 pt-4">
         <button

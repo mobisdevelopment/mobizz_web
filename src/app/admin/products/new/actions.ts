@@ -1,6 +1,7 @@
 "use server";
 
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
+import { uploadedImageRepository } from "@/services/repositories/uploadedImageRepository";
 import { API_CONFIG } from "@/constants/config";
 import { makeApiRequest } from "@/services/apiRequest";
 import { redirect } from "next/navigation";
@@ -48,7 +49,24 @@ export async function createProduct(
     const establishmentId = formData.get("establishmentId") as string;
     const establishmentProductCategoryId = formData.get("categoryId") as string;
     const status = parseInt(formData.get("status") as string);
+    const images = formData.getAll("images") as File[];
 
+    // Upload images first if provided
+    const uploadedImages = [];
+    if (images.length > 0) {
+      for (const image of images) {
+        try {
+          const uploadedImage = await uploadedImageRepository.uploadImage(
+            image
+          );
+          uploadedImages.push(uploadedImage);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+      }
+    }
+
+    // Create product with image references
     const response = await makeApiRequest(
       API_CONFIG.BASE_URL,
       API_CONFIG.ENDPOINTS.PRODUCTS.CREATE,
@@ -63,6 +81,9 @@ export async function createProduct(
             ? `api/establishment_product_categories/${establishmentProductCategoryId}`
             : null,
           status,
+          uploadedImages: uploadedImages.map(
+            (img) => `api/uploaded_images/${img.id}`
+          ),
         }),
       }
     );
