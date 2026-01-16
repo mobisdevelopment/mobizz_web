@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Establishment } from "@/types/establishment";
 import { establishmentProductCategoryRepository } from "@/services/repositories/establishmentProductCategoryRepository";
+import { productRepository } from "@/services/repositories/productRepository";
 
 export async function getEstablishmentById(
   id: string
@@ -67,36 +68,17 @@ export async function createProduct(
     }
 
     // Create product with image references
-    const response = await makeApiRequest(
-      API_CONFIG.BASE_URL,
-      API_CONFIG.ENDPOINTS.PRODUCTS.CREATE,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          name,
-          description,
-          priceMinor,
-          establishment: `api/establishments/${establishmentId}`,
-          establishmentProductCategory: establishmentProductCategoryId
-            ? `api/establishment_product_categories/${establishmentProductCategoryId}`
-            : null,
-          status,
-          uploadedImages: uploadedImages.map(
-            (img) => `api/uploaded_images/${img.id}`
-          ),
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      return {
-        error:
-          errorData?.error?.message ||
-          errorData?.message ||
-          "Failed to create product",
-      };
-    }
+    await productRepository.createProduct({
+      name,
+      description,
+      priceMinor,
+      establishmentId: parseInt(establishmentId),
+      establishmentProductCategoryId: establishmentProductCategoryId
+        ? parseInt(establishmentProductCategoryId)
+        : undefined,
+      status,
+      uploadedImagesIds: uploadedImages.map((img) => img.id),
+    });
 
     revalidatePath("/admin/products");
   } catch (error: unknown) {

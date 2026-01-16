@@ -95,7 +95,18 @@ class ProductRepository {
   async createProduct(data: Partial<Product>): Promise<Product> {
     const response = await makeApiRequest(this.baseUrl, this.endpoints.CREATE, {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        establishment: data.establishmentId
+          ? `api/establishments/${data.establishmentId}`
+          : null,
+        establishmentProductCategory: data.establishmentProductCategoryId
+          ? `api/establishment_product_categories/${data.establishmentProductCategoryId}`
+          : null,
+        uploadedImages: data.uploadedImagesIds
+          ? data.uploadedImagesIds.map((id) => `api/uploaded_images/${id}`)
+          : [],
+      }),
       headers: {
         "Content-Type": "application/json",
       },
