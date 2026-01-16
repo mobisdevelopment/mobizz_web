@@ -56,7 +56,6 @@ export async function createProduct(
     }
 
     revalidatePath("/admin/products");
-    redirect("/admin/products");
   } catch (error: unknown) {
     console.error("Error creating product:", error);
     return {
@@ -64,4 +63,6 @@ export async function createProduct(
         error instanceof Error ? error.message : "Failed to create product",
     };
   }
+
+  redirect("/admin/products");
 }
