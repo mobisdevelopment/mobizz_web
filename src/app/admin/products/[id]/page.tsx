@@ -33,18 +33,23 @@ export default async function ProductPage({
   return (
     <div className="admin-page">
       <div className="admin-page-header">
-        <Link
-          href="/admin/products"
-          className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
-        >
-          ← Back to Products
+        <div>
+          <Link
+            href="/admin/products"
+            className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
+          >
+            ← Back to Products
+          </Link>
+          <h1>{product.name}</h1>
+        </div>
+        <Link href={`/admin/products/${id}/edit`} className="btn btn-primary">
+          Edit Product
         </Link>
-        <h1>{product.name}</h1>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-8 space-y-6">
+      <div className="admin-container">
         {/* Basic Info */}
-        <div>
+        <div className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Basic Information
           </h2>
@@ -81,7 +86,7 @@ export default async function ProductPage({
         </div>
 
         {/* Establishment Info */}
-        <div>
+        <div className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
             Establishment
           </h2>
@@ -96,27 +101,24 @@ export default async function ProductPage({
               {product.establishment.name}
             </Link>
           </div>
-        </div>
-
-        {/* Category Info */}
-        {product.establishmentProductCategory && (
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-              Category
-            </h2>
-            <div>
-              <label className="block text-sm font-medium text-gray-600">
-                Category Name
-              </label>
+            <label className="block text-sm font-medium text-gray-600">
+              Establishment Product Category
+            </label>
+            {product.establishmentProductCategory ? (
               <p className="text-lg text-gray-900">
                 {product.establishmentProductCategory.name}
               </p>
-            </div>
+            ) : (
+              <p className="text-lg text-gray-900 italic">
+                No category assigned.
+              </p>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Status */}
-        <div>
+        <div className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Status</h2>
           <div>
             <span
@@ -131,7 +133,7 @@ export default async function ProductPage({
 
         {/* Images */}
         {product.uploadedImages && product.uploadedImages.length > 0 && (
-          <div>
+          <div className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
               Uploaded Images
             </h2>

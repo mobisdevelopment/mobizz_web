@@ -54,6 +54,10 @@ input {
   }
 }
 
+.admin-container {
+  @apply bg-white rounded-lg shadow p-8;
+}
+
 .admin-table-container {
   @apply bg-white rounded-lg shadow overflow-hidden;
 }

@@ -31,7 +31,7 @@ export default async function NewProductPage({
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-8 max-w-2xl">
+      <div className="admin-container">
         <NewProductForm establishment={establishment} categories={categories} />
       </div>
     </div>
