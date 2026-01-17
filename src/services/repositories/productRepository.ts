@@ -71,7 +71,7 @@ class ProductRepository {
       {
         method: "PATCH",
         body: JSON.stringify({
-          data,
+          ...data,
           establishment: data.establishmentId
             ? `api/establishments/${data.establishmentId}`
             : null,
