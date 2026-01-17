@@ -2,8 +2,6 @@
 
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
 import { uploadedImageRepository } from "@/services/repositories/uploadedImageRepository";
-import { API_CONFIG } from "@/constants/config";
-import { makeApiRequest } from "@/services/apiRequest";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Establishment } from "@/types/establishment";
@@ -11,12 +9,11 @@ import { establishmentProductCategoryRepository } from "@/services/repositories/
 import { productRepository } from "@/services/repositories/productRepository";
 
 export async function getEstablishmentById(
-  id: string
+  id: string,
 ): Promise<Establishment | null> {
   try {
-    const establishment = await establishmentRepository.getEstablishmentDetails(
-      id
-    );
+    const establishment =
+      await establishmentRepository.getEstablishmentDetails(id);
     return establishment;
   } catch (error) {
     console.error("Error fetching establishment:", error);
@@ -25,12 +22,11 @@ export async function getEstablishmentById(
 }
 
 export async function getEstablishmentProductCategories(
-  establishmentId: number
+  establishmentId: number,
 ) {
   try {
-    const categories = await establishmentProductCategoryRepository.list(
-      establishmentId
-    );
+    const categories =
+      await establishmentProductCategoryRepository.list(establishmentId);
 
     return categories;
   } catch (error) {
@@ -52,7 +48,7 @@ interface CreateProductState {
 
 export async function createProduct(
   prevState: CreateProductState | null,
-  formData: FormData
+  formData: FormData,
 ): Promise<CreateProductState> {
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
@@ -142,9 +138,8 @@ export async function createProduct(
     if (images.length > 0) {
       for (const image of images) {
         try {
-          const uploadedImage = await uploadedImageRepository.uploadImage(
-            image
-          );
+          const uploadedImage =
+            await uploadedImageRepository.uploadImage(image);
           uploadedImages.push(uploadedImage);
         } catch (error) {
           console.error("Error uploading image:", error);

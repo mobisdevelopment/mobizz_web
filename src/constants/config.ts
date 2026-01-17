@@ -10,6 +10,8 @@ export const API_CONFIG = {
     ESTABLISHMENTS: {
       LIST: "api/establishments-admin",
       DETAILS: (id: string) => `api/establishments/${id}`,
+      CREATE: "api/establishments",
+      UPDATE: (id: string) => `api/establishments/${id}`,
     },
     ESTABLISHMENT_PRODUCT_CATEGORIES: {
       LIST: "api/establishment_product_categories",

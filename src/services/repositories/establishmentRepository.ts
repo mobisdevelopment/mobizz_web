@@ -39,11 +39,56 @@ class EstablishmentRepository {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) {
       throw new Error("Failed to load establishment details");
+    }
+
+    const establishment: Establishment = await response.json();
+
+    return establishment;
+  }
+
+  async createEstablishment(
+    data: Partial<Establishment>,
+  ): Promise<Establishment> {
+    const response = await makeApiRequest(this.baseUrl, this.endpoints.CREATE, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create establishment");
+    }
+
+    const establishment: Establishment = await response.json();
+
+    return establishment;
+  }
+
+  async updateEstablishment(
+    id: string,
+    data: Partial<Establishment>,
+  ): Promise<Establishment> {
+    const response = await makeApiRequest(
+      this.baseUrl,
+      this.endpoints.UPDATE(id),
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to update establishment");
     }
 
     const establishment: Establishment = await response.json();

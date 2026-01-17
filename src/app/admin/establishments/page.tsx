@@ -18,6 +18,9 @@ export default async function EstablishmentsPage({
           <h1>Establishments</h1>
           <p>Manage your business establishments</p>
         </div>
+        <Link href="/admin/establishments/new" className="btn btn-primary">
+          Add Establishment
+        </Link>
       </div>
 
       <div className="admin-table-container">
