@@ -4,11 +4,17 @@ import { getProducts } from "./actions";
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: number; establishment?: number }>;
 }) {
   const params = await searchParams;
-  const page = Math.max(1, parseInt(params.page || "1", 10));
-  const products = await getProducts(page);
+  const page = Math.max(1, params.page || 1);
+  const establishmentId = params.establishment;
+  const products = await getProducts(page, establishmentId);
+
+  const paginationParams = new URLSearchParams();
+  if (establishmentId) {
+    paginationParams.set("establishment", establishmentId.toString());
+  }
 
   return (
     <div className="admin-page">
@@ -29,6 +35,7 @@ export default async function ProductsPage({
               <th>Name</th>
               <th>Preț</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -59,11 +66,22 @@ export default async function ProductsPage({
                       {product.status === 1 ? "Active" : "Inactive"}
                     </span>
                   </td>
+                  <td>
+                    <div className="flex gap-2">
+                      <Link
+                        href={`/admin/products/${product.id}/edit`}
+                        className="btn btn-primary inline-flex items-center gap-2"
+                        title="Edit Product"
+                      >
+                        Edit
+                      </Link>
+                    </div>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr className="empty">
-                <td colSpan={6} className="empty">
+                <td colSpan={7} className="empty">
                   No products found
                 </td>
               </tr>
@@ -74,7 +92,7 @@ export default async function ProductsPage({
 
       <div className="admin-pagination">
         <Link
-          href={`?page=${page - 1}`}
+          href={`?page=${page - 1}${paginationParams.toString() ? "&" + paginationParams.toString() : ""}`}
           className={page <= 1 ? "disabled" : "enabled"}
         >
           Previous
@@ -82,7 +100,10 @@ export default async function ProductsPage({
 
         <span>Page {page}</span>
 
-        <Link href={`?page=${page + 1}`} className="enabled">
+        <Link
+          href={`?page=${page + 1}${paginationParams.toString() ? "&" + paginationParams.toString() : ""}`}
+          className="enabled"
+        >
           Next
         </Link>
       </div>

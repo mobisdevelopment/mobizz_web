@@ -23,35 +23,25 @@ export default async function EditProductPage({
           <p className="text-red-700 mb-4">
             The product you are trying to edit does not exist.
           </p>
-          <Link
-            href="/admin/products"
-            className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Back to Products
-          </Link>
         </div>
       </div>
     );
   }
 
   const categories = await getEstablishmentProductCategories(
-    product.establishment.id
+    product.establishment.id,
   );
 
   return (
     <div className="admin-page">
-      <div className="mb-8">
-        <Link
-          href={`/admin/products/${id}`}
-          className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
-        >
-          ← Back to Product Details
-        </Link>
-        <h1 className="text-4xl font-bold text-gray-900">Edit Product</h1>
-        <p className="text-gray-600 mt-2">Update product information</p>
+      <div className="admin-page-header">
+        <div>
+          <h1>Edit Product</h1>
+          <p>Update product information</p>
+        </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-8 max-w-2xl">
+      <div className="admin-container">
         <EditProductForm product={product} categories={categories} />
       </div>
     </div>

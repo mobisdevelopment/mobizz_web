@@ -6,8 +6,17 @@ class ProductRepository {
   private readonly baseUrl = API_CONFIG.BASE_URL;
   private readonly endpoints = API_CONFIG.ENDPOINTS.PRODUCTS;
 
-  async listProducts(page?: number): Promise<Product[]> {
-    const url = this.endpoints.LIST + (page ? `?page=${page}` : "");
+  async listProducts(
+    page?: number,
+    establishmentId?: number,
+  ): Promise<Product[]> {
+    let url = this.endpoints.LIST + (page ? `?page=${page}` : "");
+    if (establishmentId) {
+      url += page
+        ? `&establishment=${establishmentId}`
+        : `?establishment=${establishmentId}`;
+    }
+
     const response = await makeApiRequest(this.baseUrl, url, {
       method: "GET",
       headers: {
@@ -39,7 +48,7 @@ class ProductRepository {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -76,7 +85,7 @@ class ProductRepository {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -84,7 +93,7 @@ class ProductRepository {
       throw new Error(
         errorData?.error?.message ||
           errorData?.message ||
-          "Failed to update product"
+          "Failed to update product",
       );
     }
 
@@ -117,7 +126,7 @@ class ProductRepository {
       throw new Error(
         errorData?.error?.message ||
           errorData?.message ||
-          "Failed to create product"
+          "Failed to create product",
       );
     }
 

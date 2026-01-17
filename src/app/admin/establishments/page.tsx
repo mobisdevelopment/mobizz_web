@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Plus, Package } from "lucide-react";
 import { getEstablishments } from "./actions";
 
 export default async function EstablishmentsPage({
@@ -51,12 +52,22 @@ export default async function EstablishmentsPage({
                     </span>
                   </td>
                   <td>
-                    <a
-                      href={`/admin/products/new?establishmentId=${establishment.id}`}
-                      className="btn btn-primary"
-                    >
-                      + Product
-                    </a>
+                    <div className="flex gap-2">
+                      <a
+                        href={`/admin/products/new?establishmentId=${establishment.id}`}
+                        className="btn btn-primary inline-flex items-center gap-2"
+                        title="Add Product"
+                      >
+                        <Plus size={18} /> Product
+                      </a>
+                      <Link
+                        href={`/admin/products?establishment=${establishment.id}`}
+                        className="btn btn-primary inline-flex items-center gap-2"
+                        title="View Products"
+                      >
+                        <Package size={18} />
+                      </Link>
+                    </div>
                   </td>
                 </tr>
               ))

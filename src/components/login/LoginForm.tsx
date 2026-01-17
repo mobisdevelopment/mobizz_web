@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { loginWithEmailAndPassword } from "@/app/(public)/login/actions";
 import FormErrors from "../common/FormErrors";
 
-export default function LoginForm() {
+export default function LoginForm({ next }: { next?: string }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +21,7 @@ export default function LoginForm() {
     const result = await loginWithEmailAndPassword(email, password);
 
     if (result.success) {
-      router.push("/");
+      router.push(next || "/");
     } else {
       setErrors(result.errors);
     }

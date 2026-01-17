@@ -11,7 +11,7 @@ export default async function AdminLayout({
   const currentUser = await UserService.getCurrentUser();
 
   if (!currentUser || !currentUser.roles.includes("ROLE_ADMIN")) {
-    redirect("/");
+    redirect("/login?next=/admin");
   }
 
   return (

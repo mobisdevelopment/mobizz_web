@@ -19,12 +19,6 @@ export default async function ProductPage({
           <p className="text-red-700 mb-4">
             The product you are looking for does not exist.
           </p>
-          <Link
-            href="/admin/products"
-            className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Back to Products
-          </Link>
         </div>
       </div>
     );
@@ -34,12 +28,6 @@ export default async function ProductPage({
     <div className="admin-page">
       <div className="admin-page-header">
         <div>
-          <Link
-            href="/admin/products"
-            className="text-blue-600 hover:text-blue-800 mb-4 inline-block"
-          >
-            ← Back to Products
-          </Link>
           <h1>{product.name}</h1>
         </div>
         <Link href={`/admin/products/${id}/edit`} className="btn btn-primary">
