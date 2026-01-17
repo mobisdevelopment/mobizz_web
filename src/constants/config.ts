@@ -7,6 +7,9 @@ export const API_CONFIG = {
     CONTACT: {
       SAVE: "api/contact_messages",
     },
+    USERS: {
+      CURRENT: "api/users/me",
+    },
     ESTABLISHMENTS: {
       LIST: "api/establishments-admin",
       DETAILS: (id: string) => `api/establishments/${id}`,
