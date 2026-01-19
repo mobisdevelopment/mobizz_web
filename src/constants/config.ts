@@ -9,6 +9,7 @@ export const API_CONFIG = {
     },
     USERS: {
       CURRENT: "api/users/me",
+      LIST: "api/users-admin",
     },
     ESTABLISHMENTS: {
       LIST: "api/establishments-admin",

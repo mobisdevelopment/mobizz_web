@@ -25,6 +25,25 @@ class UserRepository {
     const user: User = await response.json();
     return user;
   }
+
+  async listUsers(page: number = 1): Promise<User[]> {
+    const url = new URL(this.endpoints.LIST, this.baseUrl);
+    url.searchParams.append("page", page.toString());
+
+    const response = await makeApiRequest(url.toString(), "", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch users: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data as User[];
+  }
 }
 
 export const userRepository = new UserRepository();

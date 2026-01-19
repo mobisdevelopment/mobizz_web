@@ -39,6 +39,15 @@ export default function AdminSidebar({
               <span>Products</span>
             </Link>
           </li>
+          <li key="/admin/users">
+            <Link
+              href="/admin/users"
+              className={`${pathname === "/admin/users" ? "active" : ""}`}
+            >
+              <Users className="w-6 h-6" />
+              <span>Users</span>
+            </Link>
+          </li>
         </ul>
         {currentUser && (
           <>
