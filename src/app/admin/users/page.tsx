@@ -1,6 +1,20 @@
 import Link from "next/link";
 import { getUsers } from "./actions";
 
+const ROLE_STYLES: Record<string, string> = {
+  ADMIN: "bg-purple-100 text-purple-800",
+  ROLE_ADMIN: "bg-purple-100 text-purple-800",
+  OWNER: "bg-blue-100 text-blue-800",
+  ROLE_OWNER: "bg-blue-100 text-blue-800",
+  MANAGER: "bg-emerald-100 text-emerald-800",
+  ROLE_MANAGER: "bg-emerald-100 text-emerald-800",
+  USER: "bg-gray-100 text-gray-800",
+  ROLE_USER: "bg-gray-100 text-gray-800",
+};
+
+const getRoleClasses = (role: string) =>
+  ROLE_STYLES[role?.toUpperCase()] ?? "bg-slate-100 text-slate-800";
+
 export default async function UsersPage({
   searchParams,
 }: {
@@ -28,6 +42,7 @@ export default async function UsersPage({
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>Roles</th>
             </tr>
           </thead>
           <tbody>
@@ -38,11 +53,23 @@ export default async function UsersPage({
                   <td className="primary">{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
+                  <td>
+                    <div className="role-badges">
+                      {user.roles.map((role) => (
+                        <span
+                          key={role}
+                          className={`role-badge ${getRoleClasses(role)}`}
+                        >
+                          {role}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr className="empty">
-                <td colSpan={4} className="empty">
+                <td colSpan={5} className="empty">
                   No users found
                 </td>
               </tr>

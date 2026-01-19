@@ -122,6 +122,14 @@ input {
   }
 }
 
+.role-badges {
+  @apply flex flex-wrap gap-2;
+}
+
+.role-badge {
+  @apply inline-flex items-center rounded-full border border-gray-200 px-2.5 py-1 text-xs font-semibold;
+}
+
 .admin-pagination {
   @apply mt-8 flex items-center justify-center gap-4;
 
