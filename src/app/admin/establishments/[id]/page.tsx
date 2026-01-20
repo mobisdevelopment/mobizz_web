@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getEstablishmentDetails } from "./actions";
+import ViewLocationMap from "@/components/admin/establishments/ViewLocationMap";
 
 export default async function EstablishmentPage({
   params,
@@ -125,12 +126,26 @@ export default async function EstablishmentPage({
           </div>
         </div>
 
+        {/* Location Map */}
+        {establishment.lat && establishment.lng && (
+          <div className="mb-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+              Location Map
+            </h2>
+            <ViewLocationMap
+              latitude={parseFloat(establishment.lat)}
+              longitude={parseFloat(establishment.lng)}
+              address={establishment.address}
+            />
+          </div>
+        )}
+
         {/* Images */}
         {establishment.establishmentImages &&
           establishment.establishmentImages.length > 0 && (
             <div className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                Establishment Images
+                Images
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {establishment.establishmentImages.map((image) => (
