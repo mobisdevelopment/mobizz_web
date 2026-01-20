@@ -1,3 +1,5 @@
+import { EstablishmentImage } from "./establishmentImage";
+
 export interface Establishment {
   id: number;
   categoryId: string;
@@ -8,5 +10,6 @@ export interface Establishment {
   email: string;
   website?: string;
   status: number;
+  establishmentImages?: EstablishmentImage[];
   establishmentImagesIds?: string[];
 }

@@ -53,6 +53,12 @@ class EstablishmentRepository {
     }
 
     const establishment: Establishment = await response.json();
+    establishment.establishmentImages = establishment.establishmentImages?.map(
+      (image) => ({
+        ...image,
+        url: API_CONFIG.BASE_URL + "uploads/images/" + image.image,
+      }),
+    );
 
     return establishment;
   }
