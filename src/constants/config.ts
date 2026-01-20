@@ -4,6 +4,9 @@ export const API_CONFIG = {
     AUTH: {
       LOGIN: "api/auth/login",
     },
+    CATEGORIES: {
+      LIST: "api/categories",
+    },
     CONTACT: {
       SAVE: "api/contact_messages",
     },

@@ -1,4 +1,5 @@
 import NewEstablishmentForm from "@/components/admin/establishments/NewEstablishmentForm";
+import { getCategories } from "./actions";
 
 export default async function NewEstablishmentPage({
   searchParams,
@@ -7,6 +8,7 @@ export default async function NewEstablishmentPage({
 }) {
   const params = await searchParams;
   const userFirebaseUid = params.user;
+  const categories = await getCategories();
 
   return (
     <div className="admin-page">
@@ -18,7 +20,10 @@ export default async function NewEstablishmentPage({
       </div>
 
       <div className="admin-container">
-        <NewEstablishmentForm userFirebaseUid={userFirebaseUid} />
+        <NewEstablishmentForm
+          userFirebaseUid={userFirebaseUid}
+          categories={categories}
+        />
       </div>
     </div>
   );

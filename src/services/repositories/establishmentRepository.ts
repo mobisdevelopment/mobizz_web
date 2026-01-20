@@ -68,6 +68,7 @@ class EstablishmentRepository {
       },
       body: JSON.stringify({
         ...data,
+        category: `api/categories/${data.categoryId}`,
         owner: `api/users/${ownerFirebaseUid}`,
       }),
     });

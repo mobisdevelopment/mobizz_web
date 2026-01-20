@@ -3,15 +3,27 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
+import { categoryRepository } from "@/services/repositories/categoryRepository copy";
 
 interface CreateEstablishmentState {
   error?: string;
   values?: {
     ownerFirebaseUid?: string;
+    categoryId?: string;
     name?: string;
     address?: string;
     status?: string;
   };
+}
+
+export async function getCategories() {
+  try {
+    const categories = await categoryRepository.list();
+    return categories;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
 }
 
 export async function createEstablishment(
@@ -19,12 +31,14 @@ export async function createEstablishment(
   formData: FormData,
 ): Promise<CreateEstablishmentState> {
   const ownerFirebaseUid = formData.get("ownerFirebaseUid") as string | null;
+  const categoryId = formData.get("categoryId") as string;
   const name = formData.get("name") as string;
   const address = formData.get("address") as string;
   const status = formData.get("status") as string;
 
   const savedValues = {
     ownerFirebaseUid: ownerFirebaseUid ?? "",
+    categoryId: categoryId ?? "",
     name: name ?? "",
     address: address ?? "",
     status: status ?? "1",
@@ -75,6 +89,7 @@ export async function createEstablishment(
 
     // Create establishment
     await establishmentRepository.createEstablishment(ownerFirebaseUid, {
+      categoryId: categoryId ?? "",
       name: name.trim(),
       address: address.trim(),
       status: parseInt(status),
