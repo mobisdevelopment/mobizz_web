@@ -43,6 +43,7 @@ export default async function UsersPage({
               <th>Email</th>
               <th>Phone</th>
               <th>Roles</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,11 +66,19 @@ export default async function UsersPage({
                       ))}
                     </div>
                   </td>
+                  <td>
+                    <Link
+                      href={`/admin/establishments?user=${user.firebaseUid}`}
+                      className="admin-table-action"
+                    >
+                      Establishments
+                    </Link>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr className="empty">
-                <td colSpan={5} className="empty">
+                <td colSpan={6} className="empty">
                   No users found
                 </td>
               </tr>

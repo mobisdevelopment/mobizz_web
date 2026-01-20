@@ -1,9 +1,13 @@
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
 
-export async function getEstablishments(page: number = 1) {
+export async function getEstablishments(
+  page: number = 1,
+  userFirebaseUid?: string,
+) {
   try {
     const establishments = await establishmentRepository.listEstablishments(
-      page
+      page,
+      userFirebaseUid,
     );
 
     return establishments;

@@ -5,11 +5,17 @@ import { getEstablishments } from "./actions";
 export default async function EstablishmentsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; user?: string }>;
 }) {
   const params = await searchParams;
   const page = Math.max(1, parseInt(params.page || "1", 10));
-  const establishments = await getEstablishments(page);
+  const userFirebaseUid = params.user;
+  const establishments = await getEstablishments(page, userFirebaseUid);
+
+  const paginationParams = new URLSearchParams();
+  if (userFirebaseUid) {
+    paginationParams.set("user", userFirebaseUid.toString());
+  }
 
   return (
     <div className="admin-page">
@@ -18,9 +24,14 @@ export default async function EstablishmentsPage({
           <h1>Establishments</h1>
           <p>Manage your business establishments</p>
         </div>
-        <Link href="/admin/establishments/new" className="btn btn-primary">
-          Add Establishment
-        </Link>
+        {userFirebaseUid && (
+          <Link
+            href={`/admin/establishments/new?user=${userFirebaseUid}`}
+            className="btn btn-primary"
+          >
+            Add Establishment
+          </Link>
+        )}
       </div>
 
       <div className="admin-table-container">
@@ -87,7 +98,7 @@ export default async function EstablishmentsPage({
 
       <div className="admin-pagination">
         <Link
-          href={`?page=${page - 1}`}
+          href={`?page=${page - 1}${paginationParams.toString() ? "&" + paginationParams.toString() : ""}`}
           className={page <= 1 ? "disabled" : "enabled"}
         >
           Previous
@@ -95,7 +106,10 @@ export default async function EstablishmentsPage({
 
         <span>Page {page}</span>
 
-        <Link href={`?page=${page + 1}`} className="enabled">
+        <Link
+          href={`?page=${page + 1}${paginationParams.toString() ? "&" + paginationParams.toString() : ""}`}
+          className="enabled"
+        >
           Next
         </Link>
       </div>

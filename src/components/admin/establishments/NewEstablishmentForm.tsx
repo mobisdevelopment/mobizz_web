@@ -3,7 +3,11 @@
 import { useFormState } from "react-dom";
 import { createEstablishment } from "@/app/admin/establishments/new/actions";
 
-export default function NewEstablishmentForm() {
+export default function NewEstablishmentForm({
+  userFirebaseUid,
+}: {
+  userFirebaseUid?: string;
+}) {
   const [state, formAction] = useFormState(createEstablishment, null);
 
   return (
@@ -16,6 +20,10 @@ export default function NewEstablishmentForm() {
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-800">{state.error}</p>
         </div>
+      )}
+
+      {userFirebaseUid && (
+        <input type="hidden" name="ownerFirebaseUid" value={userFirebaseUid} />
       )}
 
       <div>

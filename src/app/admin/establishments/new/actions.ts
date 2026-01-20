@@ -7,6 +7,7 @@ import { establishmentRepository } from "@/services/repositories/establishmentRe
 interface CreateEstablishmentState {
   error?: string;
   values?: {
+    ownerFirebaseUid?: string;
     name?: string;
     address?: string;
     status?: string;
@@ -17,11 +18,13 @@ export async function createEstablishment(
   prevState: CreateEstablishmentState | null,
   formData: FormData,
 ): Promise<CreateEstablishmentState> {
+  const ownerFirebaseUid = formData.get("ownerFirebaseUid") as string | null;
   const name = formData.get("name") as string;
   const address = formData.get("address") as string;
   const status = formData.get("status") as string;
 
   const savedValues = {
+    ownerFirebaseUid: ownerFirebaseUid ?? "",
     name: name ?? "",
     address: address ?? "",
     status: status ?? "1",
@@ -29,6 +32,13 @@ export async function createEstablishment(
 
   try {
     // Validation
+    if (!ownerFirebaseUid || typeof ownerFirebaseUid !== "string") {
+      return {
+        error: "Valid owner Firebase UID is required",
+        values: savedValues,
+      };
+    }
+
     if (!name || name.trim().length === 0) {
       return { error: "Establishment name is required", values: savedValues };
     }
@@ -64,7 +74,7 @@ export async function createEstablishment(
     }
 
     // Create establishment
-    await establishmentRepository.createEstablishment({
+    await establishmentRepository.createEstablishment(ownerFirebaseUid, {
       name: name.trim(),
       address: address.trim(),
       status: parseInt(status),

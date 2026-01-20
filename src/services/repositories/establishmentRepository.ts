@@ -6,8 +6,14 @@ class EstablishmentRepository {
   private readonly baseUrl = API_CONFIG.BASE_URL;
   private readonly endpoints = API_CONFIG.ENDPOINTS.ESTABLISHMENTS;
 
-  async listEstablishments(page?: number): Promise<Establishment[]> {
-    const url = this.endpoints.LIST + (page ? `?page=${page}` : "");
+  async listEstablishments(
+    page?: number,
+    userFirebaseUid?: string,
+  ): Promise<Establishment[]> {
+    let url = this.endpoints.LIST + (page ? `?page=${page}` : "");
+    if (userFirebaseUid) {
+      url += page ? `&owner=${userFirebaseUid}` : `?owner=${userFirebaseUid}`;
+    }
     const response = await makeApiRequest(this.baseUrl, url, {
       method: "GET",
       headers: {
@@ -52,6 +58,7 @@ class EstablishmentRepository {
   }
 
   async createEstablishment(
+    ownerFirebaseUid: string,
     data: Partial<Establishment>,
   ): Promise<Establishment> {
     const response = await makeApiRequest(this.baseUrl, this.endpoints.CREATE, {
@@ -59,7 +66,10 @@ class EstablishmentRepository {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        owner: `api/users/${ownerFirebaseUid}`,
+      }),
     });
 
     if (!response.ok) {

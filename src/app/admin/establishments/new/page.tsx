@@ -1,6 +1,13 @@
 import NewEstablishmentForm from "@/components/admin/establishments/NewEstablishmentForm";
 
-export default function NewEstablishmentPage() {
+export default async function NewEstablishmentPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ user?: string }>;
+}) {
+  const params = await searchParams;
+  const userFirebaseUid = params.user;
+
   return (
     <div className="admin-page">
       <div className="admin-page-header">
@@ -11,7 +18,7 @@ export default function NewEstablishmentPage() {
       </div>
 
       <div className="admin-container">
-        <NewEstablishmentForm />
+        <NewEstablishmentForm userFirebaseUid={userFirebaseUid} />
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ const DEBUG = process.env.NEXT_PUBLIC_API_DEBUG === "true";
 export async function makeApiRequest(
   baseUrl: string,
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<Response> {
   const url = `${baseUrl}${endpoint}`;
   const token = await TokenService.getBearerToken();
@@ -16,7 +16,7 @@ export async function makeApiRequest(
       url,
       headers: {
         ...options.headers,
-        ...(token ? { Authorization: "Bearer ***" } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       body: options.body,
     });
