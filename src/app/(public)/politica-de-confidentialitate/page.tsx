@@ -1,5 +1,5 @@
 import { COMPANY_INFO } from "@/constants/constants";
-import { FileText, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
 
 export default function PrivacyPolicy() {
   return (
@@ -33,11 +33,11 @@ export default function PrivacyPolicy() {
             <div className="mb-12">
               <p className="text-dark-600 leading-relaxed">
                 Aceasta este politica de confidențialitate pentru aplicația
-                Mobizz (denumită în continuare „noi" sau „aplicația"). Vom
-                utiliza această pagină pentru a vă informa cu privire la
-                politica noastră de confidențialitate în ceea ce privește
-                utilizarea datelor personale colectate prin intermediul
-                aplicației noastre.
+                Mobizz (denumită în continuare &quot;noi&quot; sau
+                &quot;aplicația&quot;). Vom utiliza această pagină pentru a vă
+                informa cu privire la politica noastră de confidențialitate în
+                ceea ce privește utilizarea datelor personale colectate prin
+                intermediul aplicației noastre.
               </p>
             </div>
 
