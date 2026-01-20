@@ -11,6 +11,7 @@ interface CreateEstablishmentState {
     ownerFirebaseUid?: string;
     categoryId?: string;
     name?: string;
+    description?: string;
     address?: string;
     status?: string;
   };
@@ -33,6 +34,7 @@ export async function createEstablishment(
   const ownerFirebaseUid = formData.get("ownerFirebaseUid") as string | null;
   const categoryId = formData.get("categoryId") as string;
   const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
   const address = formData.get("address") as string;
   const status = formData.get("status") as string;
 
@@ -40,6 +42,7 @@ export async function createEstablishment(
     ownerFirebaseUid: ownerFirebaseUid ?? "",
     categoryId: categoryId ?? "",
     name: name ?? "",
+    description: description ?? "",
     address: address ?? "",
     status: status ?? "1",
   };
@@ -91,6 +94,7 @@ export async function createEstablishment(
     await establishmentRepository.createEstablishment(ownerFirebaseUid, {
       categoryId: categoryId ?? "",
       name: name.trim(),
+      description: description.trim(),
       address: address.trim(),
       status: parseInt(status),
     });
