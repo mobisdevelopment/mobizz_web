@@ -57,6 +57,7 @@ export async function updateEstablishment(
   const longitude = formData.get("longitude") as string;
   const status = formData.get("status") as string;
   const images = formData.getAll("images") as File[];
+  const existingImageIds = formData.getAll("existingImageIds") as string[];
 
   const savedValues = {
     categoryId: categoryId ?? "",
@@ -64,6 +65,8 @@ export async function updateEstablishment(
     description: description ?? "",
     address: address ?? "",
     status: status ?? "1",
+    latitude: latitude ?? "",
+    longitude: longitude ?? "",
   };
 
   try {
@@ -123,11 +126,6 @@ export async function updateEstablishment(
       }
     }
 
-    // Get current establishment to preserve existing images
-    const currentEstablishment =
-      await establishmentRepository.getEstablishmentDetails(establishmentId);
-    const existingImageIds = currentEstablishment?.establishmentImagesIds || [];
-
     // Upload new images if provided
     const uploadedImages = [];
     if (images.length > 0) {
@@ -149,8 +147,8 @@ export async function updateEstablishment(
       name: name.trim(),
       description: description.trim(),
       address: address.trim(),
-      lat: latitude ?? undefined,
-      lng: longitude ?? undefined,
+      lat: latitude ? latitude : undefined,
+      lng: longitude ? longitude : undefined,
       status: parseInt(status),
       establishmentImagesIds: [
         ...existingImageIds,

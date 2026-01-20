@@ -17,8 +17,8 @@ export default function NewEstablishmentForm({
   const [state, formAction] = useFormState(createEstablishment, null);
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [latitude, setLatitude] = useState<number>(44.4268);
-  const [longitude, setLongitude] = useState<number>(26.1025);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
   const [address, setAddress] = useState<string>("");
 
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,8 +49,11 @@ export default function NewEstablishmentForm({
     });
 
     // Add coordinates
-    formData.append("latitude", latitude.toString());
-    formData.append("longitude", longitude.toString());
+    formData.append("latitude", latitude !== null ? latitude.toString() : "");
+    formData.append(
+      "longitude",
+      longitude !== null ? longitude.toString() : "",
+    );
 
     await formAction(formData);
   };

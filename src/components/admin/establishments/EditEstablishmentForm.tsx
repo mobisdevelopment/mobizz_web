@@ -16,8 +16,11 @@ export default function EditEstablishmentForm({
   categories: Category[];
 }) {
   const [state, formAction] = useFormState(updateEstablishment, null);
-  const [images, setImages] = useState<File[]>([]);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [newImages, setNewImages] = useState<File[]>([]);
+  const [newImagePreviews, setNewImagePreviews] = useState<string[]>([]);
+  const [existingImages, setExistingImages] = useState(
+    establishment.establishmentImages || [],
+  );
   const [latitude, setLatitude] = useState<number | null>(
     establishment.lat ? parseFloat(establishment.lat) : null,
   );
@@ -29,12 +32,12 @@ export default function EditEstablishmentForm({
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImages((prev) => [...prev, file]);
+      setNewImages((prev) => [...prev, file]);
 
       const reader = new FileReader();
       reader.onload = (event) => {
         const result = event.target?.result as string;
-        setImagePreviews((prev) => [...prev, result]);
+        setNewImagePreviews((prev) => [...prev, result]);
       };
       reader.readAsDataURL(file);
 
@@ -43,14 +46,24 @@ export default function EditEstablishmentForm({
     }
   };
 
-  const handleRemoveImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  const handleRemoveNewImage = (index: number) => {
+    setNewImages((prev) => prev.filter((_, i) => i !== index));
+    setNewImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleRemoveExistingImage = (index: number) => {
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleFormAction = async (formData: FormData) => {
-    images.forEach((image) => {
+    // Add new images to form data
+    newImages.forEach((image) => {
       formData.append("images", image);
+    });
+
+    // Add existing image IDs
+    existingImages.forEach((image) => {
+      formData.append("existingImageIds", image.id);
     });
 
     // Add coordinates
@@ -195,28 +208,35 @@ export default function EditEstablishmentForm({
       </div>
 
       {/* Existing Images */}
-      {establishment.establishmentImages &&
-        establishment.establishmentImages.length > 0 && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Current Images ({establishment.establishmentImages.length})
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {establishment.establishmentImages.map((image) => (
-                <div
-                  key={image.id}
-                  className="border rounded-lg overflow-hidden"
+      {existingImages.length > 0 && (
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Current Images ({existingImages.length})
+          </label>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {existingImages.map((image, index) => (
+              <div
+                key={image.id}
+                className="border rounded-lg overflow-hidden relative group"
+              >
+                <img
+                  src={image.url}
+                  alt={`Current ${index + 1}`}
+                  className="w-full h-24 object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveExistingImage(index)}
+                  className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  title="Remove image"
                 >
-                  <img
-                    src={image.url}
-                    alt={`Image ${image.id}`}
-                    className="w-full h-24 object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+                  ×
+                </button>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+      )}
 
       <div>
         <label
@@ -251,25 +271,25 @@ export default function EditEstablishmentForm({
         </p>
       </div>
 
-      {imagePreviews.length > 0 && (
+      {newImagePreviews.length > 0 && (
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            New Images to Upload ({imagePreviews.length})
+            New Images to Upload ({newImagePreviews.length})
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {imagePreviews.map((preview, index) => (
+            {newImagePreviews.map((preview, index) => (
               <div
                 key={index}
                 className="border rounded-lg overflow-hidden relative group"
               >
                 <img
                   src={preview}
-                  alt={`Preview ${index + 1}`}
+                  alt={`New ${index + 1}`}
                   className="w-full h-24 object-cover"
                 />
                 <button
                   type="button"
-                  onClick={() => handleRemoveImage(index)}
+                  onClick={() => handleRemoveNewImage(index)}
                   className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove image"
                 >

@@ -136,8 +136,8 @@ export async function createEstablishment(
       name: name.trim(),
       description: description.trim(),
       address: address.trim(),
-      lat: latitude ?? undefined,
-      lng: longitude ?? undefined,
+      lat: latitude ? latitude : undefined,
+      lng: longitude ? longitude : undefined,
       status: parseInt(status),
       establishmentImagesIds: uploadedImages.map((img) => img.id),
     });
