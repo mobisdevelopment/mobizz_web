@@ -101,11 +101,19 @@ class EstablishmentRepository {
       this.baseUrl,
       this.endpoints.UPDATE(id),
       {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          category: `api/categories/${data.categoryId}`,
+          establishmentImages: data.establishmentImagesIds
+            ? data.establishmentImagesIds.map(
+                (id) => `api/establishment_images/${id}`,
+              )
+            : [],
+        }),
       },
     );
 

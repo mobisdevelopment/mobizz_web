@@ -4,8 +4,8 @@ import { useState, useCallback } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
 interface LocationPickerProps {
-  defaultLat?: number;
-  defaultLng?: number;
+  defaultLat?: number | null;
+  defaultLng?: number | null;
   address?: string;
   onLocationChange: (lat: number, lng: number) => void;
 }
@@ -165,7 +165,7 @@ export default function LocationPicker({
           }}
         >
           <Marker
-            position={markerPosition}
+            position={markerPosition ?? undefined}
             draggable={true}
             onDragEnd={onMarkerDragEnd}
           />

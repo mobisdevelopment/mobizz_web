@@ -3,8 +3,6 @@
 import { productRepository } from "@/services/repositories/productRepository";
 import { establishmentProductCategoryRepository } from "@/services/repositories/establishmentProductCategoryRepository";
 import { uploadedImageRepository } from "@/services/repositories/uploadedImageRepository";
-import { API_CONFIG } from "@/constants/config";
-import { makeApiRequest } from "@/services/apiRequest";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { Product } from "@/types/product";
@@ -20,12 +18,11 @@ export async function getProductForEdit(id: string): Promise<Product | null> {
 }
 
 export async function getEstablishmentProductCategories(
-  establishmentId: number
+  establishmentId: number,
 ) {
   try {
-    const categories = await establishmentProductCategoryRepository.list(
-      establishmentId
-    );
+    const categories =
+      await establishmentProductCategoryRepository.list(establishmentId);
     return categories;
   } catch (error) {
     console.error("Error fetching establishment product categories:", error);
@@ -46,7 +43,7 @@ interface UpdateProductState {
 
 export async function updateProduct(
   prevState: UpdateProductState | null,
-  formData: FormData
+  formData: FormData,
 ): Promise<UpdateProductState> {
   const productId = formData.get("productId") as string;
   const name = formData.get("name") as string;
@@ -137,9 +134,8 @@ export async function updateProduct(
     if (images.length > 0) {
       for (const image of images) {
         try {
-          const uploadedImage = await uploadedImageRepository.uploadImage(
-            image
-          );
+          const uploadedImage =
+            await uploadedImageRepository.uploadImage(image);
           uploadedImages.push(uploadedImage);
         } catch (error) {
           console.error("Error uploading image:", error);

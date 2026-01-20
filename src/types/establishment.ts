@@ -1,8 +1,10 @@
+import { Category } from "./category";
 import { EstablishmentImage } from "./establishmentImage";
 
 export interface Establishment {
   id: number;
   categoryId: string;
+  category?: Category;
   name: string;
   description: string;
   address: string;
