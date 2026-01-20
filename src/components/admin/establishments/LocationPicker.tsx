@@ -16,8 +16,8 @@ const mapContainerStyle = {
 };
 
 export default function LocationPicker({
-  defaultLat = 44.4268, // Bucharest default
-  defaultLng = 26.1025,
+  defaultLat,
+  defaultLng,
   address = "",
   onLocationChange,
 }: LocationPickerProps) {
@@ -29,12 +29,16 @@ export default function LocationPicker({
   const [markerPosition, setMarkerPosition] = useState<{
     lat: number;
     lng: number;
-  } | null>(null);
+  } | null>(
+    defaultLat && defaultLng ? { lat: defaultLat, lng: defaultLng } : null,
+  );
 
-  const [center, setCenter] = useState({
-    lat: defaultLat ?? 44.4268,
-    lng: defaultLng ?? 26.1025,
-  });
+  const [center, setCenter] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(
+    defaultLat && defaultLng ? { lat: defaultLat, lng: defaultLng } : null,
+  );
 
   const [isSearching, setIsSearching] = useState(false);
 
@@ -155,7 +159,7 @@ export default function LocationPicker({
       <div className="rounded-lg border border-gray-300 overflow-hidden">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
-          center={center}
+          center={center || { lat: 44.4268, lng: 26.1025 }}
           zoom={15}
           onClick={onMapClick}
           options={{
