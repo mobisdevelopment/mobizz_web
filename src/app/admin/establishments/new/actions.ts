@@ -39,6 +39,8 @@ export async function createEstablishment(
   const description = formData.get("description") as string;
   const address = formData.get("address") as string;
   const status = formData.get("status") as string;
+  const latitude = formData.get("latitude") as string;
+  const longitude = formData.get("longitude") as string;
   const images = formData.getAll("images") as File[];
 
   const savedValues = {
@@ -48,6 +50,8 @@ export async function createEstablishment(
     description: description ?? "",
     address: address ?? "",
     status: status ?? "1",
+    latitude: latitude ?? "",
+    longitude: longitude ?? "",
   };
 
   try {
@@ -132,6 +136,8 @@ export async function createEstablishment(
       name: name.trim(),
       description: description.trim(),
       address: address.trim(),
+      lat: latitude ?? undefined,
+      lng: longitude ?? undefined,
       status: parseInt(status),
       establishmentImagesIds: uploadedImages.map((img) => img.id),
     });

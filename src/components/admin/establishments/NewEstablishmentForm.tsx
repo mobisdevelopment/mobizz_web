@@ -5,6 +5,7 @@ import { createEstablishment } from "@/app/admin/establishments/new/actions";
 import { Category } from "@/types/category";
 import { useState } from "react";
 import Link from "next/link";
+import LocationPicker from "./LocationPicker";
 
 export default function NewEstablishmentForm({
   userFirebaseUid,
@@ -16,6 +17,9 @@ export default function NewEstablishmentForm({
   const [state, formAction] = useFormState(createEstablishment, null);
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [latitude, setLatitude] = useState<number>(44.4268);
+  const [longitude, setLongitude] = useState<number>(26.1025);
+  const [address, setAddress] = useState<string>("");
 
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -43,6 +47,10 @@ export default function NewEstablishmentForm({
     images.forEach((image) => {
       formData.append("images", image);
     });
+
+    // Add coordinates
+    formData.append("latitude", latitude.toString());
+    formData.append("longitude", longitude.toString());
 
     await formAction(formData);
   };
@@ -135,11 +143,22 @@ export default function NewEstablishmentForm({
           id="address"
           name="address"
           required
-          defaultValue={state?.values?.address ?? ""}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter establishment address"
         />
       </div>
+
+      <LocationPicker
+        defaultLat={latitude}
+        defaultLng={longitude}
+        address={address}
+        onLocationChange={(lat, lng) => {
+          setLatitude(lat);
+          setLongitude(lng);
+        }}
+      />
 
       <div>
         <label

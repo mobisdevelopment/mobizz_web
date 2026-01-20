@@ -9,6 +9,8 @@ export interface Establishment {
   phone: string;
   email: string;
   website?: string;
+  lat?: string;
+  lng?: string;
   status: number;
   establishmentImages?: EstablishmentImage[];
   establishmentImagesIds?: string[];
