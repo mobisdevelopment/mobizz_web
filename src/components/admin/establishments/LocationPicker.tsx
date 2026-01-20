@@ -26,14 +26,14 @@ export default function LocationPicker({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
 
-  const [markerPosition, setMarkerPosition] = useState({
-    lat: defaultLat,
-    lng: defaultLng,
-  });
+  const [markerPosition, setMarkerPosition] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
 
   const [center, setCenter] = useState({
-    lat: defaultLat,
-    lng: defaultLng,
+    lat: defaultLat ?? 44.4268,
+    lng: defaultLng ?? 26.1025,
   });
 
   const [isSearching, setIsSearching] = useState(false);
@@ -164,11 +164,13 @@ export default function LocationPicker({
             fullscreenControl: false,
           }}
         >
-          <Marker
-            position={markerPosition ?? undefined}
-            draggable={true}
-            onDragEnd={onMarkerDragEnd}
-          />
+          {markerPosition && (
+            <Marker
+              position={markerPosition}
+              draggable={true}
+              onDragEnd={onMarkerDragEnd}
+            />
+          )}
         </GoogleMap>
       </div>
       <p className="text-sm text-gray-500">
