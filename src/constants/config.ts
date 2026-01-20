@@ -20,6 +20,9 @@ export const API_CONFIG = {
       CREATE: "api/establishments",
       UPDATE: (id: string) => `api/establishments/${id}`,
     },
+    ESTABLISHMENT_IMAGES: {
+      UPLOAD: "api/establishment_images",
+    },
     ESTABLISHMENT_PRODUCT_CATEGORIES: {
       LIST: "api/establishment_product_categories",
     },

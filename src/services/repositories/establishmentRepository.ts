@@ -70,6 +70,11 @@ class EstablishmentRepository {
         ...data,
         category: `api/categories/${data.categoryId}`,
         owner: `api/users/${ownerFirebaseUid}`,
+        establishmentImages: data.establishmentImagesIds
+          ? data.establishmentImagesIds.map(
+              (id) => `api/establishment_images/${id}`,
+            )
+          : [],
       }),
     });
 

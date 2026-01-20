@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Establishment } from "@/types/establishment";
 import { createProduct } from "@/app/admin/products/new/actions";
 import { EstablishmentProductCategory } from "@/types/establishmentProductCategory";
+import Link from "next/link";
 
 interface NewProductFormProps {
   establishment: Establishment;
@@ -192,7 +193,7 @@ export default function NewProductForm({
             type="button"
             onClick={() => {
               const input = document.getElementById(
-                "imageInput"
+                "imageInput",
               ) as HTMLInputElement;
               input?.click();
             }}
@@ -243,12 +244,12 @@ export default function NewProductForm({
         >
           Create Product
         </button>
-        <a
+        <Link
           href="/admin/products"
           className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium"
         >
           Cancel
-        </a>
+        </Link>
       </div>
     </form>
   );

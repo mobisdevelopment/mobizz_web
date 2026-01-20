@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
 import { categoryRepository } from "@/services/repositories/categoryRepository copy";
+import { uploadedImageRepository } from "@/services/repositories/uploadedImageRepository";
+import { establishmentImageRepository } from "@/services/repositories/establishmentImageRepository";
 
 interface CreateEstablishmentState {
   error?: string;
@@ -37,6 +39,7 @@ export async function createEstablishment(
   const description = formData.get("description") as string;
   const address = formData.get("address") as string;
   const status = formData.get("status") as string;
+  const images = formData.getAll("images") as File[];
 
   const savedValues = {
     ownerFirebaseUid: ownerFirebaseUid ?? "",
@@ -90,6 +93,39 @@ export async function createEstablishment(
       return { error: "Valid status is required", values: savedValues };
     }
 
+    // Validate images
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    for (const image of images) {
+      if (image.size > MAX_FILE_SIZE) {
+        return {
+          error: `Image "${image.name}" is larger than 5MB`,
+          values: savedValues,
+        };
+      }
+
+      if (!image.type.startsWith("image/")) {
+        return {
+          error: `"${image.name}" is not a valid image file`,
+          values: savedValues,
+        };
+      }
+    }
+
+    // Upload images first if provided
+    const uploadedImages = [];
+    if (images.length > 0) {
+      for (const image of images) {
+        try {
+          const uploadedImage =
+            await establishmentImageRepository.uploadImage(image);
+          uploadedImages.push(uploadedImage);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+          return { error: "Failed to upload image", values: savedValues };
+        }
+      }
+    }
+
     // Create establishment
     await establishmentRepository.createEstablishment(ownerFirebaseUid, {
       categoryId: categoryId ?? "",
@@ -97,6 +133,7 @@ export async function createEstablishment(
       description: description.trim(),
       address: address.trim(),
       status: parseInt(status),
+      establishmentImagesIds: uploadedImages.map((img) => img.id),
     });
 
     revalidatePath("/admin/establishments");

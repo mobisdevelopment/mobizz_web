@@ -8,4 +8,5 @@ export interface Establishment {
   email: string;
   website?: string;
   status: number;
+  establishmentImagesIds?: string[];
 }
