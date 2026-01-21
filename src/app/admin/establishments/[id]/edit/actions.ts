@@ -1,7 +1,7 @@
 "use server";
 
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
-import { categoryRepository } from "@/services/repositories/categoryRepository copy";
+import { categoryRepository } from "@/services/repositories/categoryRepository";
 import { establishmentImageRepository } from "@/services/repositories/establishmentImageRepository";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";

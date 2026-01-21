@@ -25,6 +25,7 @@ export const API_CONFIG = {
     },
     ESTABLISHMENT_PRODUCT_CATEGORIES: {
       LIST: "api/establishment_product_categories",
+      CREATE: "api/establishment_product_categories",
     },
     PRODUCTS: {
       LIST: "api/products",

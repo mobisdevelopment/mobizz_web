@@ -1,5 +1,6 @@
 import { Category } from "./category";
 import { EstablishmentImage } from "./establishmentImage";
+import { EstablishmentProductCategory } from "./establishmentProductCategory";
 
 export interface Establishment {
   id: number;
@@ -16,4 +17,5 @@ export interface Establishment {
   status: number;
   establishmentImages?: EstablishmentImage[];
   establishmentImagesIds?: string[];
+  establishmentProductCategories?: EstablishmentProductCategory[];
 }

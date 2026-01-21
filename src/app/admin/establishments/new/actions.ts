@@ -3,8 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { establishmentRepository } from "@/services/repositories/establishmentRepository";
-import { categoryRepository } from "@/services/repositories/categoryRepository copy";
-import { uploadedImageRepository } from "@/services/repositories/uploadedImageRepository";
+import { categoryRepository } from "@/services/repositories/categoryRepository";
 import { establishmentImageRepository } from "@/services/repositories/establishmentImageRepository";
 
 interface CreateEstablishmentState {

@@ -126,6 +126,33 @@ export default async function EstablishmentPage({
           </div>
         </div>
 
+        {/* Product Categories */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+              Product Categories
+            </h2>
+            <Link
+              href={`/admin/establishments/${id}/product-categories/new`}
+              className="btn btn-secondary mb-4"
+            >
+              Add New Product Category
+            </Link>
+          </div>
+          {establishment.establishmentProductCategories &&
+          establishment.establishmentProductCategories.length > 0 ? (
+            <ul className="list-disc list-inside">
+              {establishment.establishmentProductCategories.map((category) => (
+                <li key={category.id} className="text-lg text-gray-900">
+                  {category.name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-700">No product categories assigned.</p>
+          )}
+        </div>
+
         {/* Location Map */}
         {establishment.lat && establishment.lng && (
           <div className="mb-8">
