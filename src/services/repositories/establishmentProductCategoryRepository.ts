@@ -36,6 +36,34 @@ class EstablishmentProductCategoryRepository {
     return establishmentProductCategories;
   }
 
+  async getById(id: number): Promise<EstablishmentProductCategory> {
+    const response = await makeApiRequest(
+      this.baseUrl,
+      this.endpoints.DETAILS(id.toString()),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+
+      if (errorData && errorData.error && errorData.error.message) {
+        throw new Error(errorData.error.message);
+      }
+
+      throw new Error("Failed to load establishment product category");
+    }
+
+    const establishmentProductCategory: EstablishmentProductCategory =
+      await response.json();
+
+    return establishmentProductCategory;
+  }
+
   async create(
     data: Partial<EstablishmentProductCategory>,
   ): Promise<EstablishmentProductCategory> {
@@ -58,6 +86,38 @@ class EstablishmentProductCategoryRepository {
       }
 
       throw new Error("Failed to create establishment product category");
+    }
+
+    const establishmentProductCategory: EstablishmentProductCategory =
+      await response.json();
+
+    return establishmentProductCategory;
+  }
+
+  async update(
+    id: number,
+    data: Partial<EstablishmentProductCategory>,
+  ): Promise<EstablishmentProductCategory> {
+    const response = await makeApiRequest(
+      this.baseUrl,
+      this.endpoints.UPDATE(id.toString()),
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      },
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+
+      if (errorData && errorData.error && errorData.error.message) {
+        throw new Error(errorData.error.message);
+      }
+
+      throw new Error("Failed to update establishment product category");
     }
 
     const establishmentProductCategory: EstablishmentProductCategory =

@@ -144,7 +144,13 @@ export default async function EstablishmentPage({
             <ul className="list-disc list-inside">
               {establishment.establishmentProductCategories.map((category) => (
                 <li key={category.id} className="text-lg text-gray-900">
-                  {category.name}
+                  {category.name} -{" "}
+                  <Link
+                    href={`/admin/establishments/${id}/product-categories/${category.id}/edit`}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Edit
+                  </Link>
                 </li>
               ))}
             </ul>
